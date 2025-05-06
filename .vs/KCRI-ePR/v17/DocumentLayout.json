@@ -1,0 +1,327 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\wwwroot\\js\\tablemanager.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\wwwroot\\js\\tablemanager.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\wwwroot\\js\\ajaxhandler.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\wwwroot\\js\\ajaxhandler.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\wwwroot\\js\\combomanager.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\wwwroot\\js\\combomanager.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\wwwroot\\js\\tablemanager.js||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\wwwroot\\js\\tablemanager.js||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\wwwroot\\js\\combomanager.js||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\wwwroot\\js\\combomanager.js||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\services\\dbservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\services\\dbservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\data\\globaldata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\data\\globaldata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\services\\idbservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\services\\idbservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\views\\login\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\views\\login\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\views\\insert\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\views\\insert\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\controllers\\insertcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\controllers\\insertcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|d:\\project\\kcri\u0026epr\\kcri-epr\\kcri-epr\\kcri-epr.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{9CD7E760-28E9-4FB0-946D-1A2FE241F683}|KCRI-ePR\\KCRI-ePR.csproj|solutionrelative:kcri-epr\\kcri-epr.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ajaxHandler.js",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\wwwroot\\js\\ajaxHandler.js",
+              "RelativeDocumentMoniker": "KCRI-ePR\\wwwroot\\js\\ajaxHandler.js",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\wwwroot\\js\\ajaxHandler.js",
+              "RelativeToolTip": "KCRI-ePR\\wwwroot\\js\\ajaxHandler.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-05-06T09:05:18.872Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "tableManager.js",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\wwwroot\\js\\tableManager.js",
+              "RelativeDocumentMoniker": "KCRI-ePR\\wwwroot\\js\\tableManager.js",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\wwwroot\\js\\tableManager.js",
+              "RelativeToolTip": "KCRI-ePR\\wwwroot\\js\\tableManager.js",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABkAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-05-06T09:05:34.451Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "tableManager.js",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\wwwroot\\js\\tableManager.js",
+              "RelativeDocumentMoniker": "KCRI-ePR\\wwwroot\\js\\tableManager.js",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\wwwroot\\js\\tableManager.js",
+              "RelativeToolTip": "KCRI-ePR\\wwwroot\\js\\tableManager.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-05-06T09:02:27.888Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "comboManager.js",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\wwwroot\\js\\comboManager.js",
+              "RelativeDocumentMoniker": "KCRI-ePR\\wwwroot\\js\\comboManager.js",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\wwwroot\\js\\comboManager.js",
+              "RelativeToolTip": "KCRI-ePR\\wwwroot\\js\\comboManager.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-05-06T09:01:57.996Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "site.js",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\wwwroot\\js\\site.js",
+              "RelativeDocumentMoniker": "KCRI-ePR\\wwwroot\\js\\site.js",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\wwwroot\\js\\site.js",
+              "RelativeToolTip": "KCRI-ePR\\wwwroot\\js\\site.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-05-06T09:01:56.361Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "comboManager.js",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\wwwroot\\js\\comboManager.js",
+              "RelativeDocumentMoniker": "KCRI-ePR\\wwwroot\\js\\comboManager.js",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\wwwroot\\js\\comboManager.js",
+              "RelativeToolTip": "KCRI-ePR\\wwwroot\\js\\comboManager.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4AAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-05-06T09:01:35.39Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\appsettings.json",
+              "RelativeDocumentMoniker": "KCRI-ePR\\appsettings.json",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\appsettings.json",
+              "RelativeToolTip": "KCRI-ePR\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-06T08:56:02.856Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "KCRI-ePR\\appsettings.Development.json",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\appsettings.Development.json",
+              "RelativeToolTip": "KCRI-ePR\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-06T08:55:58.924Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "IDbService.cs",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Services\\IDbService.cs",
+              "RelativeDocumentMoniker": "KCRI-ePR\\Services\\IDbService.cs",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Services\\IDbService.cs",
+              "RelativeToolTip": "KCRI-ePR\\Services\\IDbService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T08:36:29.337Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DbService.cs",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Services\\DbService.cs",
+              "RelativeDocumentMoniker": "KCRI-ePR\\Services\\DbService.cs",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Services\\DbService.cs",
+              "RelativeToolTip": "KCRI-ePR\\Services\\DbService.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwA0AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T08:36:04.138Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "GlobalData.cs",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Data\\GlobalData.cs",
+              "RelativeDocumentMoniker": "KCRI-ePR\\Data\\GlobalData.cs",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Data\\GlobalData.cs",
+              "RelativeToolTip": "KCRI-ePR\\Data\\GlobalData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T08:33:54.003Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Views\\Login\\Index.cshtml",
+              "RelativeDocumentMoniker": "KCRI-ePR\\Views\\Login\\Index.cshtml",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Views\\Login\\Index.cshtml",
+              "RelativeToolTip": "KCRI-ePR\\Views\\Login\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-06T08:32:08.43Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Program.cs",
+              "RelativeDocumentMoniker": "KCRI-ePR\\Program.cs",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Program.cs",
+              "RelativeToolTip": "KCRI-ePR\\Program.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAABoAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T08:06:25.793Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Views\\Insert\\Index.cshtml",
+              "RelativeDocumentMoniker": "KCRI-ePR\\Views\\Insert\\Index.cshtml",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Views\\Insert\\Index.cshtml",
+              "RelativeToolTip": "KCRI-ePR\\Views\\Insert\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-06T08:31:52.909Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "KCRI-ePR\\Controllers\\HomeController.cs",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "KCRI-ePR\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T08:27:02.985Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "InsertController.cs",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Controllers\\InsertController.cs",
+              "RelativeDocumentMoniker": "KCRI-ePR\\Controllers\\InsertController.cs",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Controllers\\InsertController.cs",
+              "RelativeToolTip": "KCRI-ePR\\Controllers\\InsertController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T08:28:49.138Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "LoginController.cs",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Controllers\\LoginController.cs",
+              "RelativeDocumentMoniker": "KCRI-ePR\\Controllers\\LoginController.cs",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\Controllers\\LoginController.cs",
+              "RelativeToolTip": "KCRI-ePR\\Controllers\\LoginController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAYAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T08:26:15.351Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "KCRI-ePR",
+              "DocumentMoniker": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\KCRI-ePR.csproj",
+              "RelativeDocumentMoniker": "KCRI-ePR\\KCRI-ePR.csproj",
+              "ToolTip": "D:\\Project\\KCRI\u0026EPR\\KCRI-ePR\\KCRI-ePR\\KCRI-ePR.csproj",
+              "RelativeToolTip": "KCRI-ePR\\KCRI-ePR.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-06T08:06:55.016Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
