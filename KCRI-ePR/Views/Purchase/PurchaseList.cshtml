@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase List</title>
+    <link rel="stylesheet" href="~/css/Purchase/PurchaseList.css" />
+</head>
+<body>
+
+
+    <div class="title m-0">
+        <p class="m-0">Purchase List</p>
+    </div>
+    <div class="container-fluid">
+        <div class="filter row align-items-center justify-content-end">
+            <div class="col-lg-2 d-block col-sm-12">
+                <label for="statusFilter1" class="form-label mb-2">Company :</label>
+                <select id="statusFilter1" class="w-100">
+                    <option value="">All</option>
+                    <option value="KCRI">KCRI</option>
+                    <option value="EPR">EPR</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-sm-12">
+                <label for="statusFilter2" class="form-label mb-2 d-block">Status:</label>
+                <select id="statusFilter2" class="w-100">
+                    <option value="">All</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </div>
+
+            <div class="col-lg-2 d-block col-sm-12">
+                <label class="form-label mb-2">From Date :</label>
+                <input type="date" class="w-100" />
+            </div>
+            <div class="col-lg-2 d-block col-sm-12">
+                <label class="form-label mb-2">To Date :</label>
+                <input type="date" class="w-100" />
+            </div>
+        </div>
+
+
+
+        <div class="d-flex mt-2 align-items-center justify-content-start">
+            <p class="mx-2 mb-0">Show</p>
+            <select class="mx-2  " style="width: auto;">
+                <option value="">10</option>
+                <option value="">20</option>
+                <option value="">30</option>
+                <option value="">40</option>
+                <option value="">50</option>
+            </select>
+            <p class="mb-0">entries</p>
+        </div>
+
+        <div class="table-responsive mt-1">
+            <table id="purchaseTable" class="display table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Supplier</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>PO-1001</td>
+                        <td>2023-05-15</td>
+                        <td>ABC Suppliers</td>
+                        <td>Widget A</td>
+                        <td>50</td>
+                        <td>$10.00</td>
+                        <td>$500.00</td>
+                        <td>Completed</td>
+                    </tr>
+                    <tr>
+                        <td>PO-1002</td>
+                        <td>2023-05-16</td>
+                        <td>XYZ Corporation</td>
+                        <td>Gadget B</td>
+                        <td>30</td>
+                        <td>$15.50</td>
+                        <td>$465.00</td>
+                        <td>Completed</td>
+                    </tr>
+                    <tr>
+                        <td>PO-1003</td>
+                        <td>2023-05-17</td>
+                        <td>Global Parts</td>
+                        <td>Component C</td>
+                        <td>100</td>
+                        <td>$2.75</td>
+                        <td>$275.00</td>
+                        <td>Pending</td>
+                    </tr>
+                    <tr>
+                        <td>PO-1004</td>
+                        <td>2023-05-18</td>
+                        <td>Tech Supplies</td>
+                        <td>Tool D</td>
+                        <td>10</td>
+                        <td>$45.00</td>
+                        <td>$450.00</td>
+                        <td>Completed</td>
+                    </tr>
+                    <tr>
+                        <td>PO-1005</td>
+                        <td>2023-05-19</td>
+                        <td>ABC Suppliers</td>
+                        <td>Widget A</td>
+                        <td>25</td>
+                        <td>$10.00</td>
+                        <td>$250.00</td>
+                        <td>Cancelled</td>
+                    </tr>
+                </tbody>
+            </table>
+          
+        </div>
+        <div class="page">
+            <div class="row">
+                <div class="btn-all d-flex justify-content-end align-items-center">
+                    <button class="btn-previous">Previous</button>
+                    <button class="btn-active">1</button>
+                    <button class="btn-addPage">2</button>
+                    <button class="btn-next">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/Purchase/PurchaseList.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="~/css/Login/login.css" />
+</head>
+<body>
+    <div class="container-fluid" style="background-color: #EBEBEB; min-height: 100vh; display: flex; align-items: center;">
+        <div class="container w-75 bg-white mx-auto p-4 rounded-3 shadow">
+            <div class="row align-items-center">
+                <!-- Left Column -->
+                <div class="col-lg-6 text-center">
+                    <h1 class="text-dark fw-bold">Welcome to KCFI-EPR</h1>
+                    <p class="text-dark fs-5">Your portal to manage and monitor KCFI-EPR activities. Please log in to continue.</p>
+                </div>
+
+                <!-- Right Column: Login Form -->
+                <div class="col-lg-6">
+                    <div class="card p-4 shadow-sm h-100">
+                        <!-- Logo Area with Red Background -->
+                        <div class="text-center mb-3" style="background-color: #E51E35; padding: 1rem;">
+                            <img src="~/images/KCRI_RED_logo.jpg" class="img-fluid mb-2" alt="Logo" style="max-height: 80px;">
+                            <h4 class="text-white m-0 fw-bold">KCFI-EPR</h4>
+                        </div>
+
+                        <!-- Login Form -->
+                        <h3 class="text-center mb-4">Login to Your Account</h3>
+                        <div>
+                            <div class="mb-3">
+                                <label for="username" class="form-label fw-semibold">Username</label>
+                                <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label fw-semibold">Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                            </div>
+                            <button type="submit" class="btn btn-danger w-100">
+                                <a class="nav-link text-light" asp-controller="Purchase" asp-action="PurchaseRequest">
+                                    Login
+                                </a>
+                            </button>
+
+                        </div>
+                        <div class="text-center mt-3">
+                            
+                                You want change your password?
+                                <a class="nav-link" asp-controller="Login" asp-action="ChangePassword">
+                                        Change Password!
+                                    </a>
+                                
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

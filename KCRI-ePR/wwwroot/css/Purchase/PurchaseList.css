@@ -1,0 +1,47 @@
+﻿
+.btn-previous, .btn-next {
+    border: none;
+    background-color: white;
+    color: gray;
+    width: auto;
+}
+
+.btn-addPage, .btn-active {
+    border: solid 1px gray;
+    background-color: white;
+    padding: 5px 10px;
+    margin: 2px;
+    border-radius: 2px;
+}
+
+
+body {
+    color: #333;
+}
+
+
+
+th {
+    background-color: #E51E35 !important;
+}
+
+table#purchaseTable tbody tr {
+    padding: 8px;
+    height: 10px !important; /* Set the desired height */
+}
+
+table#purchaseTable th {
+    height: 10px;
+    padding: 8px;
+    font-size: 13px;
+    color: white; /* Set header height to match */
+}
+
+
+table.dataTable tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.container-fluid {
+    padding: 20px;
+}
