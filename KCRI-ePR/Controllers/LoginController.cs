@@ -8,5 +8,13 @@ namespace KCRI_ePR.Controllers
         {
             return View();
         }
+        public IActionResult Login()
+        {
+            return View();
+        }
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
     }
 }

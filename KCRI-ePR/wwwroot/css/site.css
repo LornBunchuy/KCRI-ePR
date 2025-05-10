@@ -1,22 +1,34 @@
-html {
-  font-size: 14px;
+body {
+    font-family : Tahoma;
+    
 }
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.start{
+    color : red;
 }
-
+.require {
+    color: red;
+}
+table#purchaseTable th {
+    padding: 8px;
+    font-size: 13px;
+    color: white; /* Set header height to match */
+}
+table#purchaseTable tbody tr {
+    padding: 8px; /* Set the desired height */
+    font-size: 13px;
+}   
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    font-size: 13px;
 }
-
+.form-control {
+    border-radius: 0px;
+}
 body {
   margin-bottom: 60px;
 }
@@ -29,3 +41,94 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #E51E35;
+    height: 60px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+    padding: 6.5px 13px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+}
+
+    .nav-link:hover {
+        color: #f0f0f0;
+    }
+.navbar {
+    border-radius: 0px;
+    height: 54.13px;/* or whatever radius you prefer */
+}
+
+.navbar-toggler {
+    border-radius: 0.25rem;
+}
+nav img {
+    height: 35px;
+    width: auto;
+}
+.btn {
+    border-radius: 0px;
+}
+.navbar-toggler {
+    border-color: #fff;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-collapse {
+    transition: max-height 0.3s ease-out;
+}
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select {
+    height: 31.5px;
+    padding: 6px 10px;
+    background-color: white; /* background only on input fields */
+    color: black;
+    border: 1px solid black;
+    font-size: 13px;
+    width: 100%;
+}
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    input[type="number"]:focus,
+    input[type="search"]:focus,
+    select:focus,
+    textarea:focus {
+        border-color: #EBEBEB; /* Change border color on focus */
+        outline: none; /* Remove default browser outline */
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Optional glow effect */
+    }
+.title {
+    background-color: #EBEBEB;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    margin-top: 10px;
+}
+    @media (max-width: 991.5px) {
+        .navbar-nav {
+            text-align: center;
+        }
+
+        .navbar-collapse.show {
+            background-color: #E51E35;
+        }
+
+        .navbar-toggler {
+            border-color: #E51E35;
+        }
+    }
