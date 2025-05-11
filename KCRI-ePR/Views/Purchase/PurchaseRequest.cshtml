@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using KCRI_ePR.Models
+@model PRDataModel;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,25 +18,28 @@
     </div>
 
     <div class="container-fluid">
-        <form>
             <!-- Section 1: Date and PR Info -->
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="row d-flex">
+                    <div class="row d-flex ">
                         <div class="col-lg-4">
-                            <label for="requestedDate">Requested Date :</label>
+                            <label for="requestedDate">Requested Date :<span class="star" id="starRequestedDate">*</span></label>
                         </div>
                         <div class="col-lg-8">
-                            <input type="date" id="requestedDate" />
+                            <input type="date" id="requestedDate" class="form-control" asp-for="RequestedDate"/>
+                            <div class="invalid-feedback"
+                                 id="errorRequestedDate"
+                                 style="font-size: small">
+                                Requested date is required.
+                            </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="col-lg-4">
                     <div class="row d-flex justify-content-end">
                         <div class="col-lg-4 text-lg-end"> <label for="requireDate">Require Date : <span class="star" id="starRequireDate">*</span></label></div>
                         <div class="col-lg-8">
-                            <input type="date" id="requireDate" class="form-control"/>
+                            <input type="date" id="requireDate" class="form-control" asp-for="RequireDate"/>
                             <div class="invalid-feedback"
                                  id="errorRequireDate"
                                  style="font-size: small">
@@ -46,15 +52,17 @@
                 <div class="col-lg-4">
                     <div class="row d-flex justify-content-end">
                         <div class="col-lg-3 text-lg-end">
-                            <label for="prNo ">PR No :</label>
+                            <label for="prNo">PR No : <span class="star" id="starPrNo">*</span></label>
                         </div>
                         <div class="col-lg-8">
-                            <input type="text" id="prNo" placeholder="Enter PR Number" />
+                            <input type="text" id="prNo" class="form-control" placeholder="Enter PR Number"/>
+                            <div class="invalid-feedback" id="errorPrNo" style="font-size: small">
+                                PR Number is required.
+                            </div>
                         </div>
                     </div>
-
-
                 </div>
+
 
             </div>
 
@@ -64,173 +72,194 @@
                 <div class="col-lg-4">
                     <div class="row d-flex justify-content-end">
                         <div class="col-lg-3">
-                            <label for="company">Company :</label>
+                            <label for="company">Company : <span class="star" id="starCompany">*</span></label>
                         </div>
                         <div class="col-lg-8">
-                            <select id="company">
+                            <select id="company" class="form-select" asp-for="Company">
                             </select>
+                            <div class="invalid-feedback" id="errorCompany" style="font-size: small">
+                                Company is required.
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                </div>
                 <div class="col-lg-4">
                     <div class="row d-flex justify-content-end">
                         <div class="col-lg-3 text-lg-end">
-                            <label for="devision">Devision :</label>
+                            <label for="devision">Devision :<span class="star" id="starDevision">*</span></label>
                         </div>
                         <div class="col-lg-8">
-                            <select id="devision">
-                                <option value="">Select Devision</option>
-                                <option value="KCRI">CGs</option>
-                                <option value="EPR">MSG</option>
+                            <select id="devision" class="form-select" asp-for="Devision">
                             </select>
+                            <div class="invalid-feedback" id="errorDevision" style="font-size: small">
+                                Devision is required.
+                            </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-4">
                     <div class="row d-flex justify-content-end">
                         <div class="col-lg-3 text-lg-end">
-                            <label class="text-center" for="status">Status :</label>
+                            <label for="status">Status : <span class="star" id="starStatus">*</span></label>
                         </div>
                         <div class="col-lg-8">
-                            <input type="text" id="status" placeholder="" value="Status" />
+                            <input type="text" id="status" class="form-control" value="Open" readonly/>
+                            <div class="invalid-feedback" id="errorStatus" style="font-size: small">
+                                Status is required.
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
             <hr class="m-0 mb-2" />
             <!-- Section 2: Budget Information -->
-            <div class="row">
-                <div class="col-12 col-md-2">
-                    <label class="form-label">Budgeted :</label>
-                </div>
-                <div class="col-12 col-md-10">
-                    <div class="row g-2">
-                        <div class="col-6 col-sm-4 col-md-3">
-                            <div class="form-check">
-                                <input type="checkbox" name="budgetedYes" id="budgetedYes" value="Yes" class="form-check-input">
-                                <label for="budgetedYes" class="form-check-label">Yes</label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-4 col-md-3">
-                            <div class="form-check">
-                                <input type="checkbox" name="budgetedNo" id="budgetedNo" value="No" class="form-check-input">
-                                <label for="budgetedNo" class="form-check-label">No</label>
-                            </div>
-                        </div>
+                <!-- Section: Budgeted -->
+                <div class="row">
+                    <div class="col-12 col-md-2">
+                    <label class="form-label">Budgeted : <span class="star" id="starBudgeted">*</span></label>
                     </div>
-                </div>
-            </div>
-            <hr class="m-0 mb-2" />
-            <!-- Section 3: Delivery Method -->
-            <div class="row align-items-center">
-                <div class="col-12 col-md-2">
-                    <label class="form-label">Preferred Method of Delivery :</label>
-                </div>
-                <div class="col-12 col-md-10">
-                    <div class="row g-3 align-items-center ">
-                        <div class="col-12 col-md-3">
-                            <div class="form-check">
-                                <input type="checkbox" name="deliveryMethodSelfPickup" id="selfPickup" value="Self-pick up" class="form-check-input">
-                                <label for="selfPickup" class="form-check-label">Self-pick up</label>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-9 align-items-center ">
-                            <div class="row align-items-center mb-0 pleft">
-                                <div class="form-check col-12 col-md-4  ">
-                                    <input type="checkbox" name="deliveryMethodAddress" id="deliveryAddress" value="Delivery to Address" class="form-check-input ">
-                                    <label for="deliveryAddress" class="form-check-label">Please deliver to following address</label>
+                    <div class="col-12 col-md-10">
+                        <div class="row g-2">
+                            <div class="col-6 col-sm-4 col-md-3">
+                                <div class="form-check">
+                                    <input type="checkbox" name="budgeted" id="budgetedYes" value="Yes" class="form-check-input" asp-for="Budgeted">
+                                    <label for="budgetedYes" class="form-check-label">Yes</label>
                                 </div>
-                                <div class="col-12 col-md-8">
-                                    <input type="text" name="deliveryAddressText" class="" placeholder="Enter address">
+                            </div>
+                            <div class="col-6 col-sm-4 col-md-3">
+                                <div class="form-check">
+                            <input type="checkbox" name="budgeted" id="budgetedNo" value="No" class="form-check-input" asp-for="Budgeted">
+                                    <label for="budgetedNo" class="form-check-label">No</label>
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <hr class="m-0 mb-2" />
-
-            <!-- Section 4: Advance Payment -->
-            <div class="row">
-                <div class="col-12 col-md-2">
-                    <label class="form-label">Advance Required :</label>
-                </div>
-                <div class="col-12 col-md-10">
-                    <div class="row g-2">
-                        <div class="col-6 col-sm-3">
-                            <div class="form-check">
-                                <input type="checkbox" name="advanceRequiredYes" id="advanceYes" value="Yes" class="form-check-input">
-                                <label for="advanceYes" class="form-check-label">Yes</label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-3">
-                            <div class="form-check">
-                                <input type="checkbox" name="advanceRequiredNo" id="advanceNo" value="No" class="form-check-input">
-                                <label for="advanceNo" class="form-check-label">No</label>
-                            </div>
+                        <div class="invalid-feedback" id="errorBudgeted" style="font-size: small;">
+                            Please select Budgeted option.
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <hr class="m-0 mb-2" />
+                <hr class="m-0 mb-2" />
 
-            <!-- Section 5: Cost Center -->
-            <div class="row">
-                <div class="col-lg-2">
-                    <label>Cost Center Dept :</label>
-                </div>
-                <div class="col-lg-10">
-                    <div class="row">
-                        <div class="col-md-6 col-lg-3">
-                            <div class="form-check">
-                                <input type="checkbox" id="costCenterFixedAsset" name="costCenter" value="Fixed Asset" class="form-check-input" />
-                                <label for="costCenterFixedAsset" class="form-check-label">Fixed Asset</label>
+                <!-- Section: Delivery Method -->
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-2">
+                    <label class="form-label">Preferred Method of Delivery : <span class="star" id="starPMOD">*</span></label>
+                    </div>
+                    <div class="col-12 col-md-10">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-12 col-md-3">
+                                <div class="form-check">
+                            <input type="checkbox" name="deliveryMethod" id="selfPickup" value="Self-pick up" class="form-check-input" asp-for="DeliveryMethod">
+                                    <label for="selfPickup" class="form-check-label">Self-pick up</label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <div class="row align-items-center mb-0 pleft">
+                                    <div class="form-check col-12 col-md-4">
+                                <input type="checkbox" name="deliveryMethod" id="deliveryAddress" value="Delivery to Address" class="form-check-input" asp-for="DeliveryMethod">
+                                <label for="deliveryAddress" class="form-check-label">Please deliver to following address</label>
+                                    </div>
+                                    <div class="col-12 col-md-8">
+                                <input type="text" name="deliveryAddressText" id="Address" class="form-control" placeholder="Enter address" asp-for="DeliveryMethod">
+                                    <div class="invalid-feedback " id="errorAddress" style="font-size: small;">
+                                        Please enter a address.
+                                    </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="form-check">
-                                <input type="checkbox" id="costCenterStock" name="costCenter" value="Stock" class="form-check-input" />
-                                <label for="costCenterStock" class="form-check-label">Stock</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="form-check">
-                                <input type="checkbox" id="costCenterStationery" name="costCenter" value="Stationery" class="form-check-input" />
-                                <label for="costCenterStationery" class="form-check-label">Stationery</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="form-check">
-                                <input type="checkbox" id="costCenterService" name="costCenter" value="Service" class="form-check-input" />
-                                <label for="costCenterService" class="form-check-label">Service</label>
-                            </div>
+                    <div class="invalid-feedback " id="errorPMOD" style="font-size: small;">
+                            Please select a delivery method.
                         </div>
                     </div>
                 </div>
-            </div>
+                <hr class="m-0 mb-2" />
 
-            <hr class="m-0 mb-2" />
-            <!-- Section 6: Purpose and Specifications -->
-
-
-            <div class="row">
-                <div class="col-lg-2">
-                    <label class="" for="purpose">Purpose of the Requirement :</label>
+                <!-- Section: Advance Payment -->
+                <div class="row">
+                    <div class="col-12 col-md-2">
+                    <label class="form-label">Advance Required : <span class="star" id="starAdvance">*</span></label>
+                    </div>
+                    <div class="col-12 col-md-10">
+                        <div class="row g-2">
+                            <div class="col-6 col-sm-3">
+                                <div class="form-check">
+                            <input type="checkbox" name="advanceRequired" id="advanceYes" value="Yes" class="form-check-input" asp-for="AdvanceRequired">
+                                    <label for="advanceYes" class="form-check-label">Yes</label>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-3">
+                                <div class="form-check">
+                            <input type="checkbox" name="advanceRequired" id="advanceNo" value="No" class="form-check-input" asp-for="AdvanceRequired">
+                                    <label for="advanceNo" class="form-check-label">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback" id="errorAdvance" style="font-size: small;">
+                            Please select if advance is required.
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-10 ">
-                    <textarea id="purpose" rows="2" placeholder="Enter purpose..."></textarea>
+
+                <hr class="m-0 mb-2" />
+
+                <!-- Section: Cost Center -->
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Cost Center Dept : <span class="star" id="starCostCenter">*</span></label>
+                    </div>
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-3">
+                                <div class="form-check">
+                            <input type="checkbox" id="costCenterFixedAsset" name="costCenter" value="Fixed Asset" class="form-check-input" asp-for="CostCenter">
+                                    <label for="costCenterFixedAsset" class="form-check-label">Fixed Asset</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="form-check">
+                            <input type="checkbox" id="costCenterStock" name="costCenter" value="Stock" class="form-check-input" asp-for="CostCenter">
+                                    <label for="costCenterStock" class="form-check-label">Stock</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="form-check">
+                            <input type="checkbox" id="costCenterStationery" name="costCenter" value="Stationery" class="form-check-input" asp-for="CostCenter">
+                                    <label for="costCenterStationery" class="form-check-label">Stationery</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="form-check">
+                            <input type="checkbox" id="costCenterService" name="costCenter" value="Service" class="form-check-input" asp-for="CostCenter">
+                                    <label for="costCenterService" class="form-check-label">Service</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback" id="errorCostCenter" style="font-size: small;">
+                            Please select at least one cost center.
+                        </div>
+                    </div>
                 </div>
-            </div>
 
+                <hr class="m-0 mb-2" />
 
-
-
-        </form>
-        <table id="editableTable">
+                <!-- Section: Purpose -->
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label for="purpose">Purpose of the Requirement : <span class="star" id="starPurpose">*</span></label>
+                    </div>
+                    <div class="col-lg-10">
+                <textarea id="purpose" class="form-control" rows="2" placeholder="Enter purpose..." asp-for="Purpose"></textarea>
+                        <div class="invalid-feedback" id="errorPurpose" style="font-size: small;">
+                            Please enter the purpose of the requirement.
+                        </div>
+                    </div>
+                </div>
+        <table id="editableTable" >
             <colgroup>
                 <col style="width: 5%;">
                 <col style="width: 30%;">
@@ -245,7 +274,7 @@
                     <th>Description</th>
                     <th>UOM</th>
                     <th>Quantity</th>
-                    <th>Ust. Unit Price</th>
+                    <th>Unit Price</th>
                     <th>Amount</th>
                 </tr>
             </thead>
@@ -255,8 +284,8 @@
             <tfoot>
                 <tr>
                     <td class="total-cell text-end" colspan="3" id="totalA">Total</td>
-                    <td class="total-cell" id="totalB">0</td>
-                    <td class="total-cell text-start" colspan="2" id="totalC"><span class="text-end">$</span></td>
+                    <td class="total-cell totalB" id="totalB">0.00</td>
+                    <td class="total-cell text-start" colspan="2" id="totalC">$ <span class="text-end total totalAmount" >0.00</span></td>
                 </tr>
             </tfoot>
         </table>
@@ -273,7 +302,7 @@
                 <label for="additionalSpec">Additional Specifications :</label>
             </div>
             <div class="col-lg-10">
-                <textarea id="additionalSpec" rows="2" placeholder="Enter additional specs..."></textarea>
+                <textarea id="additionalSpec" rows="2" placeholder="Enter additional specs..." asp-for="AdditionalSpec"></textarea>
             </div>
         </div>
         <button type="submit" class="btn btn-success mt-3" id="btnsubmit">Submit Request</button>
@@ -281,6 +310,7 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/staticData.js"></script>
+    <script src="~/js/util.js"></script>
     <script src="~/js/Purchase/PurchaseRequest.js"></script>
 
 </body>

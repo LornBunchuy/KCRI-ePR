@@ -20,13 +20,33 @@ table#purchaseTable tbody tr {
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
-
 html {
     position: relative;
     min-height: 100%;
     font-size: 13px;
 }
+.collapse ul li a {
+    transition: 0.1s;
+}
+.collapse ul li a:hover {
+    color: #EBEBEB;
+}
+.collapse ul li a::after {
+    content: '';
+    width: 0;
+    height: 2px;
+    background: #EBEBEB;
+    display: block;
+    transition: 0.2s linear;
+}
+
+.collapse ul li a:hover::after {
+    width: 80%;
+}
 .form-control {
+    border-radius: 0px;
+}
+.form-select {
     border-radius: 0px;
 }
 body {
@@ -50,7 +70,6 @@ body {
     transition: background-color 0.3s ease;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
-
 .nav-item {
     padding: 6.5px 13px;
 }
@@ -80,10 +99,6 @@ nav img {
 }
 .navbar-toggler {
     border-color: #fff;
-}
-
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 .navbar-collapse {
@@ -119,16 +134,16 @@ select {
     padding: 0 15px;
     margin-top: 10px;
 }
-    @media (max-width: 991.5px) {
-        .navbar-nav {
-            text-align: center;
-        }
-
-        .navbar-collapse.show {
-            background-color: #E51E35;
-        }
-
-        .navbar-toggler {
-            border-color: #E51E35;
-        }
+@media (max-width: 991.5px) {
+    .navbar-nav {
+        text-align: center;
     }
+
+    .navbar-collapse.show {
+        background-color: #E51E35;
+    }
+
+    .navbar-toggler {
+        border-color: #E51E35;
+    }
+}

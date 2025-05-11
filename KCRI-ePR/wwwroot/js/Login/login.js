@@ -1,36 +1,64 @@
-﻿body {
-    font-family: Tahoma;
-}
-html {
-    position: relative;
-    min-height: 100%;
-    font-size: 13px;
-}
-.form-control{
-    border-radius : 0px;
-}
-.card{
-    border-radius : 0px;
-}
-.btn {
-    border-radius: 0px;
-}
-a {
-    color: #E51E35 !important;
-}
-input[type="text"],
-input[type="password"] {
-    height: 31.5px;
-    padding: 6px 10px;
-    background-color: white; /* background only on input fields */
-    color: black;
-    border: 1px solid #ccc;
-    font-size: 13px;
-}
+﻿let objFunLogin = new function () {
+    this.star = $(".star");
 
-    input[type="text"]:focus,
-    input[type="password"]:focus {
-        border-color: #EBEBEB; /* Change border color on focus */
-        outline: none; /* Remove default browser outline */
-        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Optional glow effect */
-    }
+    this.btnLogin = $("#btnLogin");
+    this.txtPassword = $("#txtPassword");
+    this.starPassword = $("#starPassword");
+    this.errorPassword = $("#errorPassword");
+
+    this.txtUsername = $("#txtUsername");
+    this.starUsername = $("#starUsername");
+    this.errorUsername = $("#errorUsername");
+
+    this.formControl = $(".form-control");
+    this.invalid = $(".invalid-feedback");
+};
+
+$(document).ready(function () {
+    objFunLogin.star.hide();
+
+    objFunLogin.btnLogin.click(function () {
+        let isValid = true;
+
+        let loginData = {
+            Username: objFunLogin.txtUsername.val(),
+            Password: objFunLogin.txtPassword.val()
+        };
+
+        objFunLogin.formControl.removeClass("is-invalid");
+        objFunLogin.invalid.hide();
+        objFunLogin.star.hide().removeClass("require");
+
+        if (!loginData.Username) {
+            objFunLogin.txtUsername.addClass("is-invalid");
+            objFunLogin.errorUsername.show();
+            objFunLogin.starUsername.show().addClass("require");
+            isValid = false;
+        }
+
+        if (!loginData.Password) {
+            objFunLogin.txtPassword.addClass("is-invalid");
+            objFunLogin.errorPassword.show();
+            objFunLogin.starPassword.show().addClass("require");
+            isValid = false;
+        }
+
+        if (!isValid) return;
+
+        // AJAX request to controller
+        $.ajax({
+            type: "POST",
+            url: "/Purchase/PurchaseRequest", // Controller/Action
+            data: loginData,
+            success: function (response) {
+                // Handle success (redirect or show message)
+                alert("Login successful!");
+                window.location.href = '/Purchase/PurchaseRequest';
+            },
+            error: function (xhr) {
+                // Handle error
+                alert("Login failed: " + xhr.responseText);
+            }
+        });
+    });
+});

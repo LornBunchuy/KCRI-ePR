@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using KCRI_ePR.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KCRI_ePR.Controllers
 {
@@ -8,6 +9,17 @@ namespace KCRI_ePR.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> InsertPurchaseRequest([FromBody] PRDataModel data)
+        {
+            if (data == null)
+            {
+                return Ok(2);
+            }
+            await Task.CompletedTask;
+            return Ok(1);
+        }
+
         public IActionResult PurchaseList()
         {
             return View();
