@@ -48,17 +48,18 @@ $(document).ready(function () {
         // AJAX request to controller
         $.ajax({
             type: "POST",
-            url: "/Purchase/PurchaseRequest", // Controller/Action
-            data: loginData,
+            url: "/Login/AuthLogin",
+            contentType: "application/json",
+            data: JSON.stringify(loginData), // Converts JavaScript object to JSON string
             success: function (response) {
-                // Handle success (redirect or show message)
-                alert("Login successful!");
-                window.location.href = '/Purchase/PurchaseRequest';
+                if (response != 3) {
+                    window.location.href = '/Purchase/PurchaseRequest';
+                }
             },
             error: function (xhr) {
-                // Handle error
                 alert("Login failed: " + xhr.responseText);
             }
         });
+
     });
 });

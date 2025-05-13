@@ -1,5 +1,6 @@
 ﻿@using KCRI_ePR.Models
-@model PRDataModel;
+@using KCRI_ePR.Models.Purchase
+@model PRModel;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +27,7 @@
                             <label for="requestedDate">Requested Date :<span class="star" id="starRequestedDate">*</span></label>
                         </div>
                         <div class="col-lg-8">
-                            <input type="date" id="requestedDate" class="form-control" asp-for="RequestedDate"/>
+                            <input type="date" id="requestedDate" class="form-control" asp-for="RequestDate"/>
                             <div class="invalid-feedback"
                                  id="errorRequestedDate"
                                  style="font-size: small">
@@ -90,7 +91,7 @@
                             <label for="devision">Devision :<span class="star" id="starDevision">*</span></label>
                         </div>
                         <div class="col-lg-8">
-                            <select id="devision" class="form-select" asp-for="Devision">
+                            <select id="devision" class="form-select" asp-for="Division">
                             </select>
                             <div class="invalid-feedback" id="errorDevision" style="font-size: small">
                                 Devision is required.
@@ -125,13 +126,13 @@
                         <div class="row g-2">
                             <div class="col-6 col-sm-4 col-md-3">
                                 <div class="form-check">
-                                    <input type="checkbox" name="budgeted" id="budgetedYes" value="Yes" class="form-check-input" asp-for="Budgeted">
+                            <input type="checkbox" name="budgeted" id="budgetedYes" value="Y" class="form-check-input" asp-for="IsBudget">
                                     <label for="budgetedYes" class="form-check-label">Yes</label>
                                 </div>
                             </div>
                             <div class="col-6 col-sm-4 col-md-3">
                                 <div class="form-check">
-                            <input type="checkbox" name="budgeted" id="budgetedNo" value="No" class="form-check-input" asp-for="Budgeted">
+                            <input type="checkbox" name="budgeted" id="budgetedNo" value="N" class="form-check-input" asp-for="IsBudget">
                                     <label for="budgetedNo" class="form-check-label">No</label>
                                 </div>
                             </div>
@@ -153,14 +154,14 @@
                         <div class="row g-3 align-items-center">
                             <div class="col-12 col-md-3">
                                 <div class="form-check">
-                            <input type="checkbox" name="deliveryMethod" id="selfPickup" value="Self-pick up" class="form-check-input" asp-for="DeliveryMethod">
+                            <input type="checkbox" name="deliveryMethod" id="selfPickup" value="Pickup" class="form-check-input" asp-for="DeliveryMethod">
                                     <label for="selfPickup" class="form-check-label">Self-pick up</label>
                                 </div>
                             </div>
                             <div class="col-12 col-md-9">
                                 <div class="row align-items-center mb-0 pleft">
                                     <div class="form-check col-12 col-md-4">
-                                <input type="checkbox" name="deliveryMethod" id="deliveryAddress" value="Delivery to Address" class="form-check-input" asp-for="DeliveryMethod">
+                                <input type="checkbox" name="deliveryMethod" id="deliveryAddress" value="Delivery" class="form-check-input" asp-for="DeliveryMethod">
                                 <label for="deliveryAddress" class="form-check-label">Please deliver to following address</label>
                                     </div>
                                     <div class="col-12 col-md-8">
@@ -188,13 +189,13 @@
                         <div class="row g-2">
                             <div class="col-6 col-sm-3">
                                 <div class="form-check">
-                            <input type="checkbox" name="advanceRequired" id="advanceYes" value="Yes" class="form-check-input" asp-for="AdvanceRequired">
+                            <input type="checkbox" name="advanceRequired" id="advanceYes" value="Y" class="form-check-input" asp-for="IsCashAdv">
                                     <label for="advanceYes" class="form-check-label">Yes</label>
                                 </div>
                             </div>
                             <div class="col-6 col-sm-3">
                                 <div class="form-check">
-                            <input type="checkbox" name="advanceRequired" id="advanceNo" value="No" class="form-check-input" asp-for="AdvanceRequired">
+                            <input type="checkbox" name="advanceRequired" id="advanceNo" value="N" class="form-check-input" asp-for="IsCashAdv">
                                     <label for="advanceNo" class="form-check-label">No</label>
                                 </div>
                             </div>
@@ -216,25 +217,25 @@
                         <div class="row">
                             <div class="col-md-6 col-lg-3">
                                 <div class="form-check">
-                            <input type="checkbox" id="costCenterFixedAsset" name="costCenter" value="Fixed Asset" class="form-check-input" asp-for="CostCenter">
+                            <input type="checkbox" id="costCenterFixedAsset" name="costCenter" value="Fixed Asset" class="form-check-input" asp-for="CCDept">
                                     <label for="costCenterFixedAsset" class="form-check-label">Fixed Asset</label>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-3">
                                 <div class="form-check">
-                            <input type="checkbox" id="costCenterStock" name="costCenter" value="Stock" class="form-check-input" asp-for="CostCenter">
+                            <input type="checkbox" id="costCenterStock" name="costCenter" value="Stock" class="form-check-input" asp-for="CCDept">
                                     <label for="costCenterStock" class="form-check-label">Stock</label>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-3">
                                 <div class="form-check">
-                            <input type="checkbox" id="costCenterStationery" name="costCenter" value="Stationery" class="form-check-input" asp-for="CostCenter">
+                            <input type="checkbox" id="costCenterStationery" name="costCenter" value="Stationery" class="form-check-input" asp-for="CCDept">
                                     <label for="costCenterStationery" class="form-check-label">Stationery</label>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-3">
                                 <div class="form-check">
-                            <input type="checkbox" id="costCenterService" name="costCenter" value="Service" class="form-check-input" asp-for="CostCenter">
+                            <input type="checkbox" id="costCenterService" name="costCenter" value="Service" class="form-check-input" asp-for="CCDept">
                                     <label for="costCenterService" class="form-check-label">Service</label>
                                 </div>
                             </div>
@@ -302,7 +303,7 @@
                 <label for="additionalSpec">Additional Specifications :</label>
             </div>
             <div class="col-lg-10">
-                <textarea id="additionalSpec" rows="2" placeholder="Enter additional specs..." asp-for="AdditionalSpec"></textarea>
+                <textarea id="additionalSpec" rows="2" placeholder="Enter additional specs..." asp-for="Remark"></textarea>
             </div>
         </div>
         <button type="submit" class="btn btn-success mt-3" id="btnsubmit">Submit Request</button>
