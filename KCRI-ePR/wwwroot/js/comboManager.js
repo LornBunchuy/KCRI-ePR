@@ -43,16 +43,9 @@
             this.setComboBoxItemSource(selbox, items, false, false);
             return;
         }
-
         const selectedItem = items.find(item => item.ItemValue == selectedValue);
         const otherItems = items.filter(item => item.ItemValue != selectedValue);
-
-        console.log('Selected item:', selectedItem); // Log the selected item
-        console.log('Other items:', otherItems); // Log the remaining items
-
         const reorderedItems = selectedItem ? [selectedItem, ...otherItems] : items;
-        console.log('Reordered items:', reorderedItems); // Log reordered items
-
         this.setComboBoxItemSource(selbox, reorderedItems, false, false);
 
         if (selectedItem) {

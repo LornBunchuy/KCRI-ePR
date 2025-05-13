@@ -37,9 +37,9 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="row d-flex justify-content-end">
-                        <div class="col-lg-4 text-lg-end"> <label for="requireDate">Require Date : <span class="star" id="starRequireDate">*</span></label></div>
-                        <div class="col-lg-8">
+                    <div class="row d-flex ">
+                    <div class="col-lg-3"> <label for="requireDate">Require Date : <span class="star" id="starRequireDate">*</span></label></div>
+                        <div class="col-lg-9">
                             <input type="date" id="requireDate" class="form-control" asp-for="RequireDate"/>
                             <div class="invalid-feedback"
                                  id="errorRequireDate"
@@ -51,11 +51,11 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="row d-flex justify-content-end">
-                        <div class="col-lg-3 text-lg-end">
+                    <div class="row d-flex">
+                    <div class="col-lg-3">
                             <label for="prNo">PR No : <span class="star" id="starPrNo">*</span></label>
                         </div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-9">
                             <input type="text" id="prNo" class="form-control" placeholder="Enter PR Number"/>
                             <div class="invalid-feedback" id="errorPrNo" style="font-size: small">
                                 PR Number is required.
@@ -71,8 +71,8 @@
             <div class="row">
 
                 <div class="col-lg-4">
-                    <div class="row d-flex justify-content-end">
-                        <div class="col-lg-3">
+                    <div class="row d-flex justify-content-start">
+                        <div class="col-lg-4">
                             <label for="company">Company : <span class="star" id="starCompany">*</span></label>
                         </div>
                         <div class="col-lg-8">
@@ -86,11 +86,11 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <div class="row d-flex justify-content-end">
-                        <div class="col-lg-3 text-lg-end">
+                    <div class="row d-flex ">
+                    <div class="col-lg-3 ">
                             <label for="devision">Devision :<span class="star" id="starDevision">*</span></label>
                         </div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-9">
                             <select id="devision" class="form-select" asp-for="Division">
                             </select>
                             <div class="invalid-feedback" id="errorDevision" style="font-size: small">
@@ -101,11 +101,11 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <div class="row d-flex justify-content-end">
-                        <div class="col-lg-3 text-lg-end">
+                    <div class="row d-flex">
+                    <div class="col-lg-3">
                             <label for="status">Status : <span class="star" id="starStatus">*</span></label>
                         </div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-9">
                             <input type="text" id="status" class="form-control" value="Open" readonly/>
                             <div class="invalid-feedback" id="errorStatus" style="font-size: small">
                                 Status is required.
@@ -118,138 +118,187 @@
             <hr class="m-0 mb-2" />
             <!-- Section 2: Budget Information -->
                 <!-- Section: Budgeted -->
-                <div class="row">
-                    <div class="col-12 col-md-2">
-                    <label class="form-label">Budgeted : <span class="star" id="starBudgeted">*</span></label>
+        <div class="row mb-3">
+            <div class="col-12 col-md-4">
+                <div class="row g-2">
+                    <div class="col-12 col-md-4">
+                        <label class="form-label">Budgeted : <span class="star" id="starBudgeted">*</span></label>
                     </div>
-                    <div class="col-12 col-md-10">
-                        <div class="row g-2">
-                            <div class="col-6 col-sm-4 col-md-3">
-                                <div class="form-check">
-                            <input type="checkbox" name="budgeted" id="budgetedYes" value="Y" class="form-check-input" asp-for="IsBudget">
-                                    <label for="budgetedYes" class="form-check-label">Yes</label>
-                                </div>
-                            </div>
-                            <div class="col-6 col-sm-4 col-md-3">
-                                <div class="form-check">
-                            <input type="checkbox" name="budgeted" id="budgetedNo" value="N" class="form-check-input" asp-for="IsBudget">
-                                    <label for="budgetedNo" class="form-check-label">No</label>
-                                </div>
-                            </div>
+                    <div class="col-6 col-sm-4 col-md-4 px-2">
+                        <div class="form-check">
+                            <input type="checkbox" name="budgeted" id="budgetedYes" value="Y"
+                                   class="form-check-input" asp-for="IsBudget">
+                            <label for="budgetedYes" class="form-check-label">Yes</label>
                         </div>
-                        <div class="invalid-feedback" id="errorBudgeted" style="font-size: small;">
-                            Please select Budgeted option.
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-4 px-3">
+                        <div class="form-check">
+                            <input type="checkbox" name="budgeted" id="budgetedNo" value="N"
+                                   class="form-check-input" asp-for="IsBudget">
+                            <label for="budgetedNo" class="form-check-label">No</label>
                         </div>
                     </div>
                 </div>
+                <div class="invalid-feedback" id="errorBudgeted" style="font-size: small;">
+                    Please select Budgeted option.
+                </div>
+            </div>
+        </div>
+
 
                 <hr class="m-0 mb-2" />
 
-                <!-- Section: Delivery Method -->
-                <div class="row align-items-center">
-                    <div class="col-12 col-md-2">
-                    <label class="form-label">Preferred Method of Delivery : <span class="star" id="starPMOD">*</span></label>
+        <!-- Section: Delivery Method -->
+        <div class="row mb-3">
+            <div class="col-12 col-md-4">
+                <div class="row">
+                    <div class="col-md-4">
+                    <label class="form-label">
+                        Preferred Method of Delivery : <span class="star" id="starPMOD">*</span>
+                    </label>
                     </div>
-                    <div class="col-12 col-md-10">
-                        <div class="row g-3 align-items-center">
-                            <div class="col-12 col-md-3">
-                                <div class="form-check">
-                            <input type="checkbox" name="deliveryMethod" id="selfPickup" value="Pickup" class="form-check-input" asp-for="DeliveryMethod">
-                                    <label for="selfPickup" class="form-check-label">Self-pick up</label>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <div class="row align-items-center mb-0 pleft">
-                                    <div class="form-check col-12 col-md-4">
-                                <input type="checkbox" name="deliveryMethod" id="deliveryAddress" value="Delivery" class="form-check-input" asp-for="DeliveryMethod">
-                                <label for="deliveryAddress" class="form-check-label">Please deliver to following address</label>
-                                    </div>
-                                    <div class="col-12 col-md-8">
-                                <input type="text" name="deliveryAddressText" id="Address" class="form-control" placeholder="Enter address" asp-for="DeliveryMethod">
-                                    <div class="invalid-feedback " id="errorAddress" style="font-size: small;">
-                                        Please enter a address.
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
+                   
+                    <!-- Self Pick-up -->
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <div class="form-check">
+                            <input type="checkbox" name="deliveryMethod" id="selfPickup" value="Pickup"
+                                   class="form-check-input" asp-for="DeliveryMethod">
+                            <label for="selfPickup" class="form-check-label">Self-pick up</label>
                         </div>
-                    <div class="invalid-feedback " id="errorPMOD" style="font-size: small;">
-                            Please select a delivery method.
+                    </div>
+                    <!-- Delivery to Address -->
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <div class="form-check">
+                            <input type="checkbox" name="deliveryMethod" id="deliveryAddress" value="Delivery"
+                                   class="form-check-input" asp-for="DeliveryMethod">
+                            <label for="deliveryAddress" class="form-check-label">
+                                Please deliver to following address
+                            </label>
                         </div>
                     </div>
                 </div>
+                
+            </div>
+            <div class="col-12 col-md-8">
+                <div class="row g-2">
+                    <!-- Address Textbox -->
+                    <div class="col-12 col-md-12">
+                        <input type="text" name="deliveryAddressText" id="Address" class="form-control"
+                               placeholder="Enter address" asp-for="DeliveryMethod">
+                        <div class="invalid-feedback" id="errorAddress" style="font-size: small;">
+                            Please enter an address.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="invalid-feedback mt-2" id="errorPMOD" style="font-size: small;">
+                    Please select a delivery method.
+                </div>
+            </div>
+        </div>
+
+
                 <hr class="m-0 mb-2" />
 
                 <!-- Section: Advance Payment -->
+        <div class="row mb-3">
+            <div class="col-12 col-md-4">
                 <div class="row">
-                    <div class="col-12 col-md-2">
+                <div class="col-6 col-sm-4 col-md-4">
                     <label class="form-label">Advance Required : <span class="star" id="starAdvance">*</span></label>
+                </div>
+                <div class="col-6 col-sm-4 col-md-4">
+                    <div class="form-check">
+                        <input type="checkbox" name="advancePayment" id="advanceYes" value="Y"
+                               class="form-check-input" asp-for="IsCashAdv">
+                        <label for="advanceYes" class="form-check-label">Yes</label>
                     </div>
-                    <div class="col-12 col-md-10">
-                        <div class="row g-2">
-                            <div class="col-6 col-sm-3">
-                                <div class="form-check">
-                            <input type="checkbox" name="advanceRequired" id="advanceYes" value="Y" class="form-check-input" asp-for="IsCashAdv">
-                                    <label for="advanceYes" class="form-check-label">Yes</label>
-                                </div>
-                            </div>
-                            <div class="col-6 col-sm-3">
-                                <div class="form-check">
-                            <input type="checkbox" name="advanceRequired" id="advanceNo" value="N" class="form-check-input" asp-for="IsCashAdv">
-                                    <label for="advanceNo" class="form-check-label">No</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="invalid-feedback" id="errorAdvance" style="font-size: small;">
-                            Please select if advance is required.
+                </div>
+                    <div class="col-6 col-sm-4 col-md-4">
+                    <div class="form-check">
+                        <input type="checkbox" name="advancePayment" id="advanceNo" value="N"
+                               class="form-check-input" asp-for="IsCashAdv">
+                        <label for="advanceNo" class="form-check-label">No</label>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="col-12 col-md-8">
+                <div class="row g-2">
+                    <div class="col-12 col-sm-12 col-md-12">
+                        <input type="text" name="advanceAmount" id="txtAmount" class="form-control"
+                               placeholder="Enter Amount" asp-for="CashAdvAmt">
+                        <div class="invalid-feedback" id="errorAmount" style="font-size: small;">
+                            Please enter an amount.
                         </div>
                     </div>
                 </div>
+                <div class="invalid-feedback" id="errorAdvance" style="font-size: small;">
+                    Please select if advance is required.
+                </div>
+            </div>
+            
+        </div>
+
 
                 <hr class="m-0 mb-2" />
 
-                <!-- Section: Cost Center -->
+        <!-- Section: Cost Center -->
+        <div class="row">
+            <div class="col-12 col-lg-4">
                 <div class="row">
-                    <div class="col-lg-2">
+                    <div class="col-12 col-md-3 col-lg-4">
                         <label>Cost Center Dept : <span class="star" id="starCostCenter">*</span></label>
                     </div>
-                    <div class="col-lg-10">
-                        <div class="row">
-                            <div class="col-md-6 col-lg-3">
-                                <div class="form-check">
-                            <input type="checkbox" id="costCenterFixedAsset" name="costCenter" value="Fixed Asset" class="form-check-input" asp-for="CCDept">
-                                    <label for="costCenterFixedAsset" class="form-check-label">Fixed Asset</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <div class="form-check">
-                            <input type="checkbox" id="costCenterStock" name="costCenter" value="Stock" class="form-check-input" asp-for="CCDept">
-                                    <label for="costCenterStock" class="form-check-label">Stock</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <div class="form-check">
-                            <input type="checkbox" id="costCenterStationery" name="costCenter" value="Stationery" class="form-check-input" asp-for="CCDept">
-                                    <label for="costCenterStationery" class="form-check-label">Stationery</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <div class="form-check">
-                            <input type="checkbox" id="costCenterService" name="costCenter" value="Service" class="form-check-input" asp-for="CCDept">
-                                    <label for="costCenterService" class="form-check-label">Service</label>
-                                </div>
-                            </div>
+                    <div class="col-6 col-md-3 col-lg-4 mb-2">
+                        <div class="form-check">
+                            <input type="checkbox" id="costCenterFixedAsset" name="costCenter" value="FA" class="form-check-input" asp-for="CCDept">
+                            <label for="costCenterFixedAsset" class="form-check-label">Fixed Asset</label>
                         </div>
-                        <div class="invalid-feedback" id="errorCostCenter" style="font-size: small;">
-                            Please select at least one cost center.
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-4 mb-2">
+                        <div class="form-check">
+                            <input type="checkbox" id="costCenterStock" name="costCenter" value="Stock" class="form-check-input" asp-for="CCDept">
+                            <label for="costCenterStock" class="form-check-label">Stock</label>
                         </div>
                     </div>
                 </div>
+            </div>
+
+
+
+            <div class="col-12 col-lg-4">
+                <div class="row">
+                    <div class="col-6 col-md-3 col-lg-4 mb-2">
+                        <div class="form-check">
+                            <input type="checkbox" id="costCenterStationery" name="costCenter" value="Stationary" class="form-check-input" asp-for="CCDept">
+                            <label for="costCenterStationery" class="form-check-label">Stationary</label>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-4 mb-2">
+                        <div class="form-check">
+                            <input type="checkbox" id="costCenterService" name="costCenter" value="Service" class="form-check-input" asp-for="CCDept">
+                            <label for="costCenterService" class="form-check-label">Service</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="invalid-feedback" id="errorCostCenter" style="font-size: small;">
+                    Please select at least one cost center.
+                </div>
+            </div>
+        </div>
+
 
                 <hr class="m-0 mb-2" />
 
                 <!-- Section: Purpose -->
                 <div class="row">
+
                     <div class="col-lg-2">
                         <label for="purpose">Purpose of the Requirement : <span class="star" id="starPurpose">*</span></label>
                     </div>

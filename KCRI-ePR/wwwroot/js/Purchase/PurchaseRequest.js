@@ -12,6 +12,10 @@ let objFuncPR = new function () {
 
     this.txtPRNo = $("#prNo");
     this.txtAddress = $("#Address");
+    this.txtCashAdvAmt = $("#txtAmount");
+    this.errorAmount = $("#errorAmount");
+
+
     this.errorAddress = $("#errorAddress");
     this.additionalSpec = $("#additionalSpec");
 
@@ -126,6 +130,9 @@ function formatfeild() {
 function checkMethodDelivery() {
     return $('#deliveryAddress').is(':checked');
 }
+function checkAdvancePayment() {
+    return $('#advanceYes').is(':checked');
+}
 
 function triggerMethodDelivery() {
     $('input[name="deliveryMethod"]').on('change', function () {
@@ -133,6 +140,15 @@ function triggerMethodDelivery() {
             $('#Address').prop('readonly', false);
         } else {
             $('#Address').prop('readonly', true).val("");
+        }
+    }).trigger('change');
+}
+function triggerAdvancePayment() {
+    $('input[name="advancePayment"]').on('change', function () {
+        if ($('#advanceYes').is(':checked')) {
+            $('#txtAmount').prop('readonly', false);
+        } else {
+            $('#txtAmount').prop('readonly', true).val("");
         }
     }).trigger('change');
 }
@@ -144,8 +160,8 @@ function preventCheckBox() {
     $("input[name='deliveryMethod']").click(function () {
         $("input[name='deliveryMethod']").not(this).prop("checked", false);
     });
-    $("input[name='advanceRequired']").click(function () {
-        $("input[name='advanceRequired']").not(this).prop("checked", false);
+    $("input[name='advancePayment']").click(function () {
+        $("input[name='advancePayment']").not(this).prop("checked", false);
     });
     $("input[name='costCenter']").click(function () {
         $("input[name='costCenter']").not(this).prop("checked", false);
@@ -177,6 +193,7 @@ $(document).ready(function () {
     objFuncPR.star.hide();
     objFuncPR.txtPRNo.prop('readonly', true);
     triggerMethodDelivery();
+    triggerAdvancePayment();
     preventCheckBox();
     formatfeild();
 
@@ -309,9 +326,9 @@ $(document).ready(function () {
             IsBudget: $('input[name="budgeted"]:checked').val(),
             DeliveryMethod: $('input[name="deliveryMethod"]:checked').val(),
             IsCashAdv: $('input[name="advanceRequired"]:checked').val(),
+            CashAdvAmt: objFuncPR.txtCashAdvAmt.val(),
             CCDept: $('input[name="costCenter"]:checked').val()
         };
-        
         objFuncPR.formControl.removeClass("is-invalid");
         objFuncPR.formSelect.removeClass("is-invalid");
         objFuncPR.invalid.hide();
@@ -320,9 +337,17 @@ $(document).ready(function () {
         let isValid = true;
 
         if (checkMethodDelivery() == true) {
-            if (!PRData.Address) {
+            if (!PRData.DeliveryAddress) {
                 objFuncPR.txtAddress.addClass("is-invalid");
                 objFuncPR.errorAddress.show();
+                isValid = false;
+            }
+        }
+        debugger
+        if (checkAdvancePayment() == true) {
+            if (!PRData.CashAdvAmt) {
+                objFuncPR.txtCashAdvAmt.addClass("is-invalid");
+                objFuncPR.errorAmount.show();
                 isValid = false;
             }
         }
@@ -369,7 +394,7 @@ $(document).ready(function () {
             objFuncPR.starPMOD.show().addClass("require");
             isValid = false;
         };
-        if ($('input[name="advanceRequired"]:checked').length == 0) {
+        if ($('input[name="advancePayment"]:checked').length == 0) {
 
             objFuncPR.errorAdvance.show();
             objFuncPR.starAdvance.show().addClass("require");
