@@ -196,9 +196,30 @@ $(document).ready(function () {
     triggerAdvancePayment();
     preventCheckBox();
     formatfeild();
-
+    
     ComboManager.setComboBoxItemSource(objFuncPR.cbCompany, staticData.getCompanyItems(), true, false);
     ComboManager.setComboBoxItemSource(objFuncPR.cbDevision, staticData.getDevisionItems(), true, false);
+    debugger
+    objFuncPR.cbCompany.on("change", function () {
+        let company = $(this).find("option:selected").text();
+        getJsonString("Purchase", "GetDocNum", company, (result) => {
+            console.log(result)
+            if (result != null) {
+                objFuncPR.txtPRNo.text(result);
+            } else {
+                objFuncPR.txtPRNo.text("N/A"); // Clear if null
+            }
+        });
+        if ($(this).val() == "1") {
+            objFuncPR.cbDevision.prop("disabled", false);
+        } else {
+            objFuncPR.cbDevision.prop("disabled", true).val("0");
+        }
+    });
+
+    // Force initial check
+    objFuncPR.cbCompany.trigger("change");
+
 
     for (let i = 0; i < 10; i++) {
         $('#editableTable tbody').append(createRow(i !== 0));
@@ -314,7 +335,7 @@ $(document).ready(function () {
 
 
     objFuncPR.btnSubmit.click(function () {
-        let PRData = {
+        let PR = {
             RequestDate: objFuncPR.txtRequestedDate.val(),
             RequireDate: objFuncPR.txtRequireDate.val(),
             Company: objFuncPR.cbCompany.find("option:selected").text(),
@@ -325,40 +346,37 @@ $(document).ready(function () {
             Remark: objFuncPR.additionalSpec.val(),
             IsBudget: $('input[name="budgeted"]:checked').val(),
             DeliveryMethod: $('input[name="deliveryMethod"]:checked').val(),
-            IsCashAdv: $('input[name="advanceRequired"]:checked').val(),
-            CashAdvAmt: objFuncPR.txtCashAdvAmt.val(),
+            IsCashAdv: $('input[name="advancePayment"]:checked').val(),
+            CashAdvAmt: parseInt(objFuncPR.txtCashAdvAmt.val()) || 0,
             CCDept: $('input[name="costCenter"]:checked').val()
         };
         objFuncPR.formControl.removeClass("is-invalid");
         objFuncPR.formSelect.removeClass("is-invalid");
         objFuncPR.invalid.hide();
         objFuncPR.star.hide().removeClass("require");
-
         let isValid = true;
-
         if (checkMethodDelivery() == true) {
-            if (!PRData.DeliveryAddress) {
+            if (!PR.DeliveryAddress) {
                 objFuncPR.txtAddress.addClass("is-invalid");
                 objFuncPR.errorAddress.show();
                 isValid = false;
             }
         }
-        debugger
         if (checkAdvancePayment() == true) {
-            if (!PRData.CashAdvAmt) {
+            if (!PR.CashAdvAmt) {
                 objFuncPR.txtCashAdvAmt.addClass("is-invalid");
                 objFuncPR.errorAmount.show();
                 isValid = false;
             }
         }
-        if (!PRData.RequestDate) {
+        if (!PR.RequestDate) {
             objFuncPR.RequestDate.addClass("is-invalid");
             objFuncPR.errorRequestedDate.show();
             objFuncPR.starRequestedDate.show().addClass("require");
             isValid = false;
         }
 
-        if (!PRData.RequireDate) {
+        if (!PR.RequireDate) {
             objFuncPR.txtRequireDate.addClass("is-invalid");
             objFuncPR.errorRequireDate.show();
             objFuncPR.starRequireDate.show().addClass("require");
@@ -371,14 +389,17 @@ $(document).ready(function () {
             objFuncPR.starCompany.show().addClass("require");
             isValid = false;
         }
-        if (!objFuncPR.cbDevision.val() || objFuncPR.cbDevision.val() == 0) {
-            objFuncPR.cbDevision.addClass("is-invalid");
-            objFuncPR.errorDevision.show();
-            objFuncPR.starDevision.show().addClass("require");
-            isValid = false;
+        if (objFuncPR.cbCompany.val() == "1") {
+            if (!objFuncPR.cbDevision.val() || objFuncPR.cbDevision.val() == "0") {
+                objFuncPR.cbDevision.addClass("is-invalid");
+                objFuncPR.errorDevision.show();
+                objFuncPR.starDevision.show().addClass("require");
+                isValid = false;
+            }
         }
 
-        if (!PRData.Purpose) {
+
+        if (!PR.Purpose) {
             objFuncPR.txtPurpose.addClass("is-invalid");
             objFuncPR.errorPurpose.show();
             objFuncPR.starPurpose.show().addClass("require");
@@ -405,24 +426,30 @@ $(document).ready(function () {
             objFuncPR.starCostCenter.show().addClass("require");
             isValid = false;
         };
-        if (!isValid) {
-            return;
+        getAllRowValues();
+        let requestData = {
+            pr: PR,
+            prDetails: allRowsData
         }
-        if (allRowsData.length == 0) {
+        if (requestData.prDetails.length == 0) {
             XSAlert({
                 title: 'Information',
                 message: "Please insert data row in table.",
                 icon: 'notification',
                 hideCancelButton: true
             });
+            isValid = false;
         }
-        console.log(PRData);
+        if (!isValid) {
+            return;
+        }
+        debugger
         $.ajax({
             url: '/Purchase/InsertPR',
             type: 'POST',
             dataType: 'json', 
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(PRData),
+            data: JSON.stringify(requestData),
             success: function (result) {
                 console.log(result);
             },

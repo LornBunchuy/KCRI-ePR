@@ -83,12 +83,12 @@
   box-sizing: border-box;
 }
 
-.bootstrap-table .fixed-table-container .table thead th {
-    vertical-align: bottom;
-    padding: 0;
-    margin: 0;
-    background-color: #0F2041;
-}
+    .bootstrap-table .fixed-table-container .table thead th {
+        vertical-align: bottom;
+        padding: 0;
+        margin: 0;
+        background-color: #E51E35;
+    }
 
 .bootstrap-table .fixed-table-container .table thead th:focus {
   outline: 0 solid transparent;
@@ -98,15 +98,15 @@
   width: 30px;
 }
 
-.bootstrap-table .fixed-table-container .table thead th .th-inner {
-  padding: 0.75rem;
-  vertical-align: bottom;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background:#0F2041;
-  color:#FFF;
-}
+        .bootstrap-table .fixed-table-container .table thead th .th-inner {
+            font-size: 13px;
+            vertical-align: bottom;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            background: #E51E35;
+            color: #FFF;
+        }
 
 .bootstrap-table .fixed-table-container .table thead th .sortable {
   cursor: pointer;

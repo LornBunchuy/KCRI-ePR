@@ -3,11 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KCRI_ePR.Models.Purchase
 {
-    [Table("PR1")]
     public class PR1Model
     {
-        public int DocEntry { get; set; } = 1;
+        public int DocEntry { get; set; }
         public int LineNum { get; set; }
+
+
         public string GLAccount { get; set; }
         public string ItemCode { get; set; }
         public string ItemName { get; set; }

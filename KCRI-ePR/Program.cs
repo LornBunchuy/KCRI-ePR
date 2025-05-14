@@ -1,11 +1,13 @@
 using KCRI_ePR.Data;
 using KCRI_ePR.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IDbService,DbService>();
+builder.Services.AddScoped<IService,Service>();
 builder.Services.AddSingleton<GlobalData>();
 var app = builder.Build();
 
@@ -26,6 +28,6 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=Login}/{action=Login}/{id?}")
     .WithStaticAssets();
 app.Run();

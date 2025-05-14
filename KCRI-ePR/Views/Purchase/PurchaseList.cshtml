@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Purchase List</title>
+    <link rel="stylesheet" href="~/lib/bootstrap-table/bootstrap-table.css" />
     <link rel="stylesheet" href="~/css/Purchase/PurchaseList.css" />
 </head>
 <body>
@@ -54,24 +55,7 @@
         </div>
 
         <div class="table-responsive mt-1">
-            <table id="purchaseTable" class="display table table-bordered">
-                <thead>
-                    <tr>
-                        <th class="text-center">PR No</th>
-                        <th class="text-center">Requested Date</th>
-                        <th class="text-center">Require Date</th>
-                        <th class="text-center">Company</th>
-                        <th class="text-center">Division</th>
-                        <th class="text-center">Purpose</th>
-                        <th class="text-center">Status</th>
-                        <th class="text-center">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                </tbody>
-            </table>
-          
+            <table class="table text-center" id="purchaseTable"></table>
         </div>
         <div class="page">
             <div class="row">
@@ -85,6 +69,8 @@
         </div>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap-table/bootstrap-table.js"></script>
+    <script src="~/js/tableManager.js"></script>
     <script src="~/js/Purchase/PurchaseList.js"></script>
 </body>
 </html>
