@@ -1,6 +1,13 @@
-﻿@using KCRI_ePR.Models
+﻿@using System.Text.Json
+@using KCRI_ePR.Models
 @using KCRI_ePR.Models.Purchase
-@model PRModel;
+@{
+    PRModel head = ViewBag.head ?? new PRModel();
+    List<PR1Model> details = ViewBag.details ?? new List<PR1Model>();
+    List<SelectListItem> companies = ViewBag.Companies ?? new List<SelectListItem>();
+    List<SelectListItem> divisions = ViewBag.Divisions ?? new List<SelectListItem>();
+}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>And Purchase</title>
     <link rel="stylesheet" href="~/css/Purchase/PurchaseRequest.css" />
-    
+
 </head>
 <body>
     <div class="container-fluid p-0">
@@ -17,124 +24,148 @@
             <p class="ms-2 mb-0">Purchase Request</p>
         </div>
     </div>
-
     <div class="container-fluid">
-            <!-- Section 1: Date and PR Info -->
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="row d-flex ">
-                        <div class="col-lg-4">
-                            <label for="requestedDate">Requested Date :<span class="star" id="starRequestedDate">*</span></label>
-                        </div>
-                        <div class="col-lg-8">
-                            <input type="date" id="requestedDate" class="form-control" asp-for="RequestDate"/>
-                            <div class="invalid-feedback"
-                                 id="errorRequestedDate"
-                                 style="font-size: small">
-                                Requested date is required.
-                            </div>
+        <!-- Section 1: Date and PR Info -->
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="row d-flex ">
+                    <div class="col-lg-4">
+                        <label for="requestedDate">Requested Date :<span class="star" id="starRequestedDate">*</span></label>
+                    </div>
+                    <div class="col-lg-8">
+                        <input type="date" id="requestedDate" data-depcode="@(head.RequestDate?.ToString("yyyy-MM-dd") ?? "-1")" class="form-control" value="@(head.RequestDate.HasValue ? head.RequestDate.Value.ToString("yyyy-MM-dd") : "")" />
+                        <div class="invalid-feedback"
+                        id="errorRequestedDate"
+                        style="font-size: small">
+                            Requested date is required.
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="row d-flex ">
+            </div>
+            <div class="col-lg-4">
+                <div class="row d-flex ">
                     <div class="col-lg-3"> <label for="requireDate">Require Date : <span class="star" id="starRequireDate">*</span></label></div>
-                        <div class="col-lg-9">
-                            <input type="date" id="requireDate" class="form-control" asp-for="RequireDate"/>
-                            <div class="invalid-feedback"
-                                 id="errorRequireDate"
-                                 style="font-size: small">
-                                Require date is required.
-                            </div>
+                    <div class="col-lg-9">
+                        <input type="date" id="requireDate" data-depcode="@(head.RequireDate?.ToString("yyyy-MM-dd") ?? "-1")" class="form-control" value="@(head.RequireDate.HasValue ? head.RequireDate.Value.ToString("yyyy-MM-dd") : "")" />
+                        <div class="invalid-feedback"
+                        id="errorRequireDate"
+                        style="font-size: small">
+                            Require date is required.
                         </div>
-
                     </div>
+
                 </div>
-                <div class="col-lg-4">
-                    <div class="row d-flex">
+            </div>
+            <div class="col-lg-4">
+                <div class="row d-flex">
                     <div class="col-lg-3">
-                            <label for="prNo">PR No : <span class="star" id="starPrNo">*</span></label>
-                        </div>
-                        <div class="col-lg-9">
-                            <input type="text" id="prNo" class="form-control" placeholder="Enter PR Number"/>
-                            <div class="invalid-feedback" id="errorPrNo" style="font-size: small">
-                                PR Number is required.
-                            </div>
+                        <label id="lbDocEntry" data-depcode="@(head.DocEntry)" for="prNo">PR No : <span class="star" id="starPrNo">*</span></label>
+                    </div>
+                    <div class="col-lg-9">
+                        <input type="text" id="prNo" data-depcode="@(head.DocNum ?? "-1")" class="form-control" placeholder="N/A" value="@(head.DocNum ?? "N/A")" />
+                        <div class="invalid-feedback" id="errorPrNo" style="font-size: small">
+                            PR Number is required.
                         </div>
                     </div>
                 </div>
-
-
             </div>
 
 
-            <div class="row">
+        </div>
 
-                <div class="col-lg-4">
-                    <div class="row d-flex justify-content-start">
-                        <div class="col-lg-4">
-                            <label for="company">Company : <span class="star" id="starCompany">*</span></label>
-                        </div>
-                        <div class="col-lg-8">
-                            <select id="company" class="form-select" asp-for="Company">
-                            </select>
-                            <div class="invalid-feedback" id="errorCompany" style="font-size: small">
-                                Company is required.
-                            </div>
+
+        <div class="row">
+
+            <div class="col-lg-4">
+                <div class="row d-flex justify-content-start">
+                    <div class="col-lg-4">
+                        <label for="company">Company : <span class="star" id="starCompany">*</span></label>
+                    </div>
+                    <div class="col-lg-8">
+                        <select id="company" name="Company" class="form-select" data-depcode="@(head.Company ?? "-1")">
+                            <option value="0">N/A</option>
+                            @foreach (var item in companies)
+                            {
+                                @if(item.Text == head.Company){
+                                    <option value="@item.Value" selected>@item.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                        <div class="invalid-feedback" id="errorCompany" style="font-size: small">
+                            Company is required.
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="col-lg-4">
-                    <div class="row d-flex ">
+
+            <div class="col-lg-4">
+                <div class="row d-flex ">
                     <div class="col-lg-3 ">
-                            <label for="devision">Devision :<span class="star" id="starDevision">*</span></label>
-                        </div>
-                        <div class="col-lg-9">
-                            <select id="devision" class="form-select" asp-for="Division">
-                            </select>
-                            <div class="invalid-feedback" id="errorDevision" style="font-size: small">
-                                Devision is required.
-                            </div>
+                        <label for="devision">Devision :<span class="star" id="starDevision">*</span></label>
+                    </div>
+                    <div class="col-lg-9">
+                        <select id="devision" class="form-select" data-depcode="@(head.Division ?? "-1")">
+                            <option value="0">N/A</option> <!-- Blank option for default -->
+                            @foreach (var item in divisions)
+                            {
+                                @if (item.Text == head.Division)
+                                {
+                                    <option value="@item.Value"  selected>@item.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                        <div class="invalid-feedback" id="errorDevision" style="font-size: small">
+                            Devision is required.
                         </div>
                     </div>
                 </div>
-
-                <div class="col-lg-4">
-                    <div class="row d-flex">
-                    <div class="col-lg-3">
-                            <label for="status">Status : <span class="star" id="starStatus">*</span></label>
-                        </div>
-                        <div class="col-lg-9">
-                            <input type="text" id="status" class="form-control" value="Open" readonly/>
-                            <div class="invalid-feedback" id="errorStatus" style="font-size: small">
-                                Status is required.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-            <hr class="m-0 mb-2" />
-            <!-- Section 2: Budget Information -->
-                <!-- Section: Budgeted -->
+
+            <div class="col-lg-4">
+                <div class="row d-flex">
+                    <div class="col-lg-3">
+                        <label for="status">Status : <span class="star" id="starStatus">*</span></label>
+                    </div>
+                    <div class="col-lg-9">
+                        <input type="text" id="status" data-depcode="@(head.DocStatus ?? "-1")" class="form-control" value="@(head.DocStatus ?? "Open")"
+                        disabled />
+                        <div class="invalid-feedback" id="errorStatus" style="font-size: small">
+                            Status is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <hr class="m-0 mb-2" />
+        <!-- Section 2: Budget Information -->
+        <!-- Section: Budgeted -->
         <div class="row mb-3">
             <div class="col-12 col-md-4">
                 <div class="row g-2">
                     <div class="col-12 col-md-4">
-                        <label class="form-label">Budgeted : <span class="star" id="starBudgeted">*</span></label>
+                        <label id="lbIsBudget" data-depcode="@(string.IsNullOrEmpty(head?.IsBudget) ? "-1" : head.IsBudget)" class="form-label">Budgeted : <span class="star" id="starBudgeted">*</span></label>
                     </div>
                     <div class="col-6 col-sm-4 col-md-4 px-2">
                         <div class="form-check">
-                            <input type="checkbox" name="budgeted" id="budgetedYes" value="Y"
-                                   class="form-check-input" asp-for="IsBudget">
+                            <input type="checkbox"  name="budgeted" id="budgetedYes" value="Y"
+                            class="form-check-input" @(head?.IsBudget == "Y" ? "checked" : "")  />
                             <label for="budgetedYes" class="form-check-label">Yes</label>
                         </div>
                     </div>
                     <div class="col-6 col-sm-4 col-md-4 px-3">
                         <div class="form-check">
                             <input type="checkbox" name="budgeted" id="budgetedNo" value="N"
-                                   class="form-check-input" asp-for="IsBudget">
+                            class="form-check-input" @(head?.IsBudget == "N" ? "checked" : "")  />
                             <label for="budgetedNo" class="form-check-label">No</label>
                         </div>
                     </div>
@@ -146,90 +177,109 @@
         </div>
 
 
-                <hr class="m-0 mb-2" />
+        <hr class="m-0 mb-2" />
 
         <!-- Section: Delivery Method -->
         <div class="row mb-3">
             <div class="col-12 col-md-4">
                 <div class="row">
                     <div class="col-md-4">
-                    <label class="form-label">
-                        Preferred Method of Delivery : <span class="star" id="starPMOD">*</span>
-                    </label>
+                        <label id="lbDeliveryMethod" data-depcode="@(string.IsNullOrEmpty(head?.DeliveryMethod) ? "-1" : head.DeliveryMethod)" class="form-label">
+                            Preferred Method of Delivery : <span class="star" id="starPMOD">*</span>
+                        </label>
                     </div>
-                   
+
                     <!-- Self Pick-up -->
                     <div class="col-12 col-sm-6 col-md-4">
                         <div class="form-check">
-                            <input type="checkbox" name="deliveryMethod" id="selfPickup" value="Pickup"
-                                   class="form-check-input" asp-for="DeliveryMethod">
+                            <input type="checkbox"
+                            name="deliveryMethod"
+                            id="selfPickup"
+                            value="Pickup"
+                            class="form-check-input"
+
+                            @(head?.DeliveryMethod == "Pickup" ? "checked" : "") />
                             <label for="selfPickup" class="form-check-label">Self-pick up</label>
                         </div>
                     </div>
+
                     <!-- Delivery to Address -->
                     <div class="col-12 col-sm-6 col-md-4">
                         <div class="form-check">
-                            <input type="checkbox" name="deliveryMethod" id="deliveryAddress" value="Delivery"
-                                   class="form-check-input" asp-for="DeliveryMethod">
+                            <input type="checkbox"
+                            name="deliveryMethod"
+                            id="deliveryAddress"
+                            value="Delivery"
+                            class="form-check-input"
+
+                            @(head?.DeliveryMethod == "Delivery" ? "checked" : "") />
                             <label for="deliveryAddress" class="form-check-label">
                                 Please deliver to following address
                             </label>
                         </div>
                     </div>
                 </div>
-                
+                <div class="invalid-feedback mt-2" id="errorPMOD" style="font-size: small;">
+                    Please select a delivery method.
+                </div>
             </div>
+
             <div class="col-12 col-md-8">
                 <div class="row g-2">
                     <!-- Address Textbox -->
                     <div class="col-12 col-md-12">
-                        <input type="text" name="deliveryAddressText" id="Address" class="form-control"
-                               placeholder="Enter address" asp-for="DeliveryMethod">
+                        <input type="text"
+                        name="deliveryAddressText"
+                        id="Address"
+                        class="form-control"
+                        data-depcode="@(head?.DeliveryAddress ?? "-1")"
+                        placeholder="Enter address"
+                        value="@head?.DeliveryAddress" />
                         <div class="invalid-feedback" id="errorAddress" style="font-size: small;">
                             Please enter an address.
                         </div>
                     </div>
                 </div>
 
-                <div class="invalid-feedback mt-2" id="errorPMOD" style="font-size: small;">
-                    Please select a delivery method.
-                </div>
             </div>
         </div>
 
 
-                <hr class="m-0 mb-2" />
 
-                <!-- Section: Advance Payment -->
+        <hr class="m-0 mb-2" />
+
+        <!-- Section: Advance Payment -->
         <div class="row mb-3">
             <div class="col-12 col-md-4">
                 <div class="row">
-                <div class="col-6 col-sm-4 col-md-4">
-                    <label class="form-label">Advance Required : <span class="star" id="starAdvance">*</span></label>
-                </div>
-                <div class="col-6 col-sm-4 col-md-4">
-                    <div class="form-check">
-                        <input type="checkbox" name="advancePayment" id="advanceYes" value="Y"
-                               class="form-check-input" asp-for="IsCashAdv">
-                        <label for="advanceYes" class="form-check-label">Yes</label>
-                    </div>
-                </div>
                     <div class="col-6 col-sm-4 col-md-4">
-                    <div class="form-check">
-                        <input type="checkbox" name="advancePayment" id="advanceNo" value="N"
-                               class="form-check-input" asp-for="IsCashAdv">
-                        <label for="advanceNo" class="form-check-label">No</label>
+                        <label id="lbIsCashAdv" data-depcode="@(string.IsNullOrEmpty(head?.IsCashAdv) ? "-1" : head.IsCashAdv)" class="form-label">Advance Required : <span class="star" id="starAdvance">*</span></label>
                     </div>
-                </div>
-            </div>
-            </div>
-            <div class="col-12 col-md-8">
-                <div class="row g-2">
-                    <div class="col-12 col-sm-12 col-md-12">
-                        <input type="text" name="advanceAmount" id="txtAmount" class="form-control"
-                               placeholder="Enter Amount" asp-for="CashAdvAmt">
-                        <div class="invalid-feedback" id="errorAmount" style="font-size: small;">
-                            Please enter an amount.
+
+                    <!-- Yes Option for Advance -->
+                    <div class="col-6 col-sm-4 col-md-4">
+                        <div class="form-check">
+                            <input type="checkbox"
+                            name="advancePayment"
+                            id="advanceYes"
+                            value="Y"
+
+                            class="form-check-input"
+                            @(head?.IsCashAdv == "Y" ? "checked" : "")  />
+                            <label for="advanceYes" class="form-check-label">Yes</label>
+                        </div>
+                    </div>
+
+                    <!-- No Option for Advance -->
+                    <div class="col-6 col-sm-4 col-md-4">
+                        <div class="form-check">
+                            <input type="checkbox" 
+                            name="advancePayment" 
+                            id="advanceNo" value="N"
+                            class="form-check-input"
+
+                            @(head?.IsCashAdv == "N" ? "checked" : "")  />
+                            <label for="advanceNo" class="form-check-label">No</label>
                         </div>
                     </div>
                 </div>
@@ -237,54 +287,82 @@
                     Please select if advance is required.
                 </div>
             </div>
-            
+
+            <div class="col-12 col-md-8">
+                <div class="row g-2">
+                    <!-- Amount Textbox -->
+                    <div class="col-12 col-sm-12 col-md-12">
+                        <input type="text" name="advanceAmount" id="txtAmount" class="form-control"
+                        placeholder="Enter Amount" data-depcode="@(head?.CashAdvAmt ?? -1)" value="@head?.CashAdvAmt" @(head?.IsCashAdv == "Y" ? "" : "disabled") />
+                        <div class="invalid-feedback" id="errorAmount" style="font-size: small;">
+                            Please enter an amount.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
 
-                <hr class="m-0 mb-2" />
+
+        <hr class="m-0 mb-2" />
 
         <!-- Section: Cost Center -->
         <div class="row">
             <div class="col-12 col-lg-4">
-                <div class="row">
+                <div class="row" >
                     <div class="col-12 col-md-3 col-lg-4">
-                        <label>Cost Center Dept : <span class="star" id="starCostCenter">*</span></label>
+                        <label id="lbCCDept" data-depcode="@(string.IsNullOrEmpty(head?.CCDept) ? "-1" : head.CCDept)">Cost Center Dept : <span class="star" id="starCostCenter">*</span></label>
                     </div>
+                    <!-- Fixed Asset Checkbox -->
                     <div class="col-6 col-md-3 col-lg-4 mb-2">
                         <div class="form-check">
-                            <input type="checkbox" id="costCenterFixedAsset" name="costCenter" value="FA" class="form-check-input" asp-for="CCDept">
+                            <input type="checkbox" id="costCenterFixedAsset" name="costCenter" value="FA"
+                            class="form-check-input"
+
+                            @(head?.CCDept == "FA" ? "checked" : "")
+                            />
                             <label for="costCenterFixedAsset" class="form-check-label">Fixed Asset</label>
                         </div>
                     </div>
+                    <!-- Stock Checkbox -->
                     <div class="col-6 col-md-3 col-lg-4 mb-2">
                         <div class="form-check">
-                            <input type="checkbox" id="costCenterStock" name="costCenter" value="Stock" class="form-check-input" asp-for="CCDept">
+                            <input type="checkbox" id="costCenterStock" name="costCenter" value="Stock"
+                            class="form-check-input"   
+                            @(head?.CCDept == "Stock" ? "checked" : "") />
                             <label for="costCenterStock" class="form-check-label">Stock</label>
                         </div>
                     </div>
                 </div>
             </div>
 
-
-
             <div class="col-12 col-lg-4">
                 <div class="row">
+                    <!-- Stationery Checkbox -->
                     <div class="col-6 col-md-3 col-lg-4 mb-2">
                         <div class="form-check">
-                            <input type="checkbox" id="costCenterStationery" name="costCenter" value="Stationary" class="form-check-input" asp-for="CCDept">
+                            <input type="checkbox" id="costCenterStationery" name="costCenter" value="Stationary"
+                            class="form-check-input"
+
+                            @(head?.CCDept == "Stationary" ? "checked" : "") />
                             <label for="costCenterStationery" class="form-check-label">Stationary</label>
                         </div>
                     </div>
+                    <!-- Service Checkbox -->
                     <div class="col-6 col-md-3 col-lg-4 mb-2">
                         <div class="form-check">
-                            <input type="checkbox" id="costCenterService" name="costCenter" value="Service" class="form-check-input" asp-for="CCDept">
+                            <input type="checkbox" id="costCenterService" name="costCenter" value="Service"
+                            class="form-check-input"
+
+                            @(head?.CCDept == "Service" ? "checked" : "") />
                             <label for="costCenterService" class="form-check-label">Service</label>
                         </div>
                     </div>
                 </div>
             </div>
-           
         </div>
+
         <div class="row">
             <div class="col-12">
                 <div class="invalid-feedback" id="errorCostCenter" style="font-size: small;">
@@ -294,22 +372,29 @@
         </div>
 
 
-                <hr class="m-0 mb-2" />
 
-                <!-- Section: Purpose -->
-                <div class="row">
+        <hr class="m-0 mb-2" />
 
-                    <div class="col-lg-2">
-                        <label for="purpose">Purpose of the Requirement : <span class="star" id="starPurpose">*</span></label>
-                    </div>
-                    <div class="col-lg-10">
-                <textarea id="purpose" class="form-control" rows="2" placeholder="Enter purpose..." asp-for="Purpose"></textarea>
-                        <div class="invalid-feedback" id="errorPurpose" style="font-size: small;">
-                            Please enter the purpose of the requirement.
-                        </div>
-                    </div>
+        <!-- Section: Purpose -->
+        <div class="row">
+            <div class="col-lg-2">
+                <label for="purpose">Purpose of the Requirement : <span class="star" id="starPurpose">*</span></label>
+            </div>
+            <div class="col-lg-10">
+                <textarea id="purpose"
+                data-depcode="@(head?.Purpose ?? "-1")"
+                rows="2"
+                class="form-control"
+                          placeholder="Enter your Purpose...">@((!string.IsNullOrWhiteSpace(head?.Purpose)) ? head.Purpose : "")</textarea>
+
+
+                <div class="invalid-feedback" id="errorPurpose" style="font-size: small;">
+                    Please enter the purpose of the requirement.
                 </div>
-        <table id="editableTable" >
+            </div>
+        </div>
+
+        <table id="editableTable">
             <colgroup>
                 <col style="width: 5%;">
                 <col style="width: 30%;">
@@ -329,35 +414,66 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Rows added by jQuery -->
+
             </tbody>
             <tfoot>
                 <tr>
                     <td class="total-cell text-end" colspan="3" id="totalA">Total</td>
                     <td class="total-cell totalB" id="totalB">0.00</td>
-                    <td class="total-cell text-start" colspan="2" id="totalC">$ <span class="text-end total totalAmount" >0.00</span></td>
+                    <td class="total-cell text-start" colspan="2" id="totalC">$ <span class="text-end total totalAmount">0.00</span></td>
                 </tr>
             </tfoot>
         </table>
         <br>
-        <div class="row justify-content-end mb-3">
-            <div class="col-auto">
-                <button id="addRow" class="btn btn-primary">Add Row</button>
-                <button id="removeRow" class="btn btn-danger">Remove Row</button>
+        @if (head?.DocStatus == null || head.DocStatus == "Open")
+        {
+            <div class="row justify-content-end mb-3">
+                <div class="col-auto">
+                    <button id="addRow" class="btn btn-primary">Add Row</button>
+                    <button id="removeRow" class="btn btn-danger">Remove Row</button>
+                </div>
             </div>
-        </div>
+        }
 
         <div class="row">
             <div class="col-lg-2">
                 <label for="additionalSpec">Additional Specifications :</label>
             </div>
             <div class="col-lg-10">
-                <textarea id="additionalSpec" rows="2" placeholder="Enter additional specs..." asp-for="Remark"></textarea>
+                <textarea id="additionalSpec"
+                data-depcode="@(head?.Remark ?? "-1")"
+                rows="2"
+                class="form-control"
+                placeholder="Enter additional specs...">@(!string.IsNullOrWhiteSpace(head?.Remark) ? head.Remark : "")</textarea>
             </div>
         </div>
-        <button type="submit" class="btn btn-success mt-3" id="btnsubmit">Submit Request</button>
-    </div>
 
+        @if (head?.DocStatus == null )
+        {
+            <button type="submit" class="btn btn-success mt-3" id="btnsubmit">
+                Submit Request
+            </button>
+            <button type="button" class="btn btn-danger mt-3" id="btnCancel">Cancel Request</button>
+        }
+        else if (head.DocStatus == "Open"){
+            <button type="submit" class="btn btn-success mt-3" id="btnsubmit">
+               Update Request
+            </button>
+            <button type="button" class="btn btn-danger mt-3" id="btnCancel">Cancel Request</button>
+            <button type="submit" class="btn btn-secondary mt-3" id="btnBack">
+                Back
+            </button>
+        }
+        else 
+        {
+            <button type="submit" class="btn btn-secondary mt-3" id="btnBack">
+                Back
+            </button>
+        }
+    </div>
+    <script>
+        var details = @Html.Raw(JsonSerializer.Serialize(details));
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/staticData.js"></script>
     <script src="~/js/requestHandle.js"></script>

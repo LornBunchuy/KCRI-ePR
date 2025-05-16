@@ -1,11 +1,18 @@
 ﻿let allRowsData = [];
-
 let objFuncPR = new function () {
     let today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
 
     if (!$("#requestedDate").val()) {
         $("#requestedDate").val(today);
     }
+
+    this.lbCCDept = $("#lbCCDept");
+    this.lbDocEntry = $("#lbDocEntry");
+    this.lbIsCashAdv = $("#lbIsCashAdv");
+    this.lbDeliveryMethod = $("#lbDeliveryMethod");
+    this.lbIsBudget = $("#lbIsBudget");
+
+    this.txtAdditionalSpec = $("#additionalSpec");
 
     this.star = $(".star");
     this.checkbox = $("input[type='checkbox']");
@@ -17,9 +24,10 @@ let objFuncPR = new function () {
 
 
     this.errorAddress = $("#errorAddress");
-    this.additionalSpec = $("#additionalSpec");
 
     this.btnSubmit = $("#btnsubmit");
+    this.btnCancel = $("#btnCancel");
+    this.btnBack = $("#btnBack");
     this.btnAddRow = $("#addRow");
     this.btnRemoveRow = $("#removeRow");
 
@@ -79,6 +87,7 @@ let objFuncPR = new function () {
     this.invalid = $(".invalid-feedback");
 }();
 
+
 function getAllRowValues() {
     allRowsData = [];
 
@@ -119,6 +128,58 @@ function createRow(readOnly = true) {
 </tr>`;
 }
 
+function updateTotals() {
+    let totalQty = 0.00;
+    let totalAmount = 0.00;
+    $('#editableTable tbody tr').each(function () {
+        const qty = parseFloat($(this).find('input[name="Quantity"]').val());
+        const amount = parseFloat($(this).find('input[name="LineTotal"]').val());
+
+        if (!isNaN(qty)) totalQty += qty;
+        if (!isNaN(amount)) totalAmount += amount;
+    });
+
+    $('#totalB').text(totalQty.toFixed(2));
+    $('.totalAmount').text(totalAmount.toFixed(2));
+}
+
+function updateRowNumbers() {
+    $('#editableTable tbody tr').each(function (index) {
+        $(this).find('.row-number').text(index + 1);
+    });
+}
+
+// Auto-calculate Amount = Quantity × UnitPrice
+$('#editableTable').on('input', 'input[name="Quantity"], input[name="UnitPrice"]', function () {
+    const row = $(this).closest('tr');
+    const qty = parseFloat(row.find('input[name="Quantity"]').val()) || 0;
+    const price = parseFloat(row.find('input[name="UnitPrice"]').val()) || 0;
+    row.find('input[name="LineTotal"]').val((qty * price).toFixed(2));
+});
+
+function clearData() {
+    const today = new Date().toISOString().split('T')[0]; // Format: yyyy-mm-dd
+
+    objFuncPR.txtRequestedDate.val(today); // Set to current date
+    objFuncPR.txtRequireDate.val('');
+    objFuncPR.txtPurpose.val('');
+    objFuncPR.txtAddress.val('');
+    objFuncPR.txtAdditionalSpec.val(''); // Fix typo
+
+    objFuncPR.txtCashAdvAmt.val('');
+    objFuncPR.cbCompany.val("0").trigger('change'); // Fix if misspelled
+
+    $('input[name="budgeted"]').prop('checked', false);
+    $('input[name="deliveryMethod"]').prop('checked', false);
+    $('input[name="advancePayment"]').prop('checked', false);
+    $('input[name="costCenter"]').prop('checked', false);
+
+    $("tr").each(function () {
+        $(this).find("input").val("");
+    });
+}
+
+
 function formatfeild() {
     formatDecimal('.txtQty', 2);
     formatDecimal('.txtUnitPrice', 2);
@@ -127,6 +188,7 @@ function formatfeild() {
     alphaNumeric('.txtUOM');
 }
 
+
 function checkMethodDelivery() {
     return $('#deliveryAddress').is(':checked');
 }
@@ -134,24 +196,28 @@ function checkAdvancePayment() {
     return $('#advanceYes').is(':checked');
 }
 
+
 function triggerMethodDelivery() {
     $('input[name="deliveryMethod"]').on('change', function () {
         if ($('#deliveryAddress').is(':checked')) {
-            $('#Address').prop('readonly', false);
+            $('#Address').prop("disabled", false);
         } else {
-            $('#Address').prop('readonly', true).val("");
+            $('#Address').prop("disabled", true).val("");
         }
     }).trigger('change');
 }
+
+
 function triggerAdvancePayment() {
     $('input[name="advancePayment"]').on('change', function () {
         if ($('#advanceYes').is(':checked')) {
-            $('#txtAmount').prop('readonly', false);
+            $('#txtAmount').prop("disabled", false);
         } else {
-            $('#txtAmount').prop('readonly', true).val("");
+            $('#txtAmount').prop("disabled", true).val("");
         }
     }).trigger('change');
 }
+
 
 function preventCheckBox() {
     $("input[name='budgeted']").click(function () {
@@ -168,48 +234,82 @@ function preventCheckBox() {
     });
 }
 
-function updateRowNumbers() {
-    $('#editableTable tbody tr').each(function (index) {
-        $(this).find('.row-number').text(index + 1);
-    });
-}
 
-function updateTotals() {
-    let totalQty = 0.00;
-    let totalAmount = 0.00;
-    $('#editableTable tbody tr').each(function () {
-        const qty = parseFloat($(this).find('input[name="Quantity"]').val());
-        const amount = parseFloat($(this).find('input[name="LineTotal"]').val());
 
-        if (!isNaN(qty)) totalQty += qty;
-        if (!isNaN(amount)) totalAmount += amount;
-    });
 
-    $('#totalB').text(totalQty.toFixed(2));
-    $('.totalAmount').text(totalAmount.toFixed(2));
-}
-
+//Initailize
 $(document).ready(function () {
+
+    console.log(details);
+    debugger
     objFuncPR.star.hide();
-    objFuncPR.txtPRNo.prop('readonly', true);
+    objFuncPR.txtPRNo.prop("disabled", true);
     triggerMethodDelivery();
     triggerAdvancePayment();
     preventCheckBox();
     formatfeild();
+
+    // Assuming objFuncPR properties are jQuery elements like $('#txtRequestedDate')
+    let depCodeDocEntry = objFuncPR.lbDocEntry.data('depcode');
+    let depCodeRequestedDate = objFuncPR.txtRequestedDate.data('depcode');
+    let depCodeRequireDate = objFuncPR.txtRequireDate.data('depcode');
+    let depCodePRNo = objFuncPR.txtPRNo.data('depcode');
+    let depCodeCompany = objFuncPR.cbCompany.data('depcode');
+    let depCodeDevision = objFuncPR.cbDevision.data('depcode');
+    let depCodeStatus = objFuncPR.txtStatus.data('depcode');
+    let depCodeAddress = objFuncPR.txtAddress.data('depcode');
+    let depCodeCashAdvAmt = objFuncPR.txtCashAdvAmt.data('depcode');
+    let depCodePurpose = objFuncPR.txtPurpose.data('depcode');
+    let depCodeAdditionalSpec = objFuncPR.txtAdditionalSpec.data('depcode');
+
+    let depCodeBudgeted = objFuncPR.lbIsBudget.data('depcode');
+    let depCodeDeliveryMethod = objFuncPR.lbDeliveryMethod.data('depcode');
+    let depCodeAdvancePayment = objFuncPR.lbIsCashAdv.data('depcode');
+    let depCodeCostCenter = objFuncPR.lbCCDept.data('depcode');
+
+    // Logs
+    console.log("depCodeDocEntry:", depCodeDocEntry);
+    console.log("depCodeRequestedDate:", depCodeRequestedDate);
+    console.log("depCodeRequireDate:", depCodeRequireDate);
+    console.log("depCodePRNo:", depCodePRNo);
+    console.log("depCodeCompany:", depCodeCompany);
+    console.log("depCodeDevision:", depCodeDevision);
+    console.log("depCodeStatus:", depCodeStatus);
+    console.log("depCodeAddress:", depCodeAddress);
+    console.log("depCodeCashAdvAmt:", depCodeCashAdvAmt);
+    console.log("depCodePurpose:", depCodePurpose);
+    console.log("depCodeAdditionalSpec:", depCodeAdditionalSpec);
+
+    console.log("depCodeBudgeted (checked):", depCodeBudgeted);
+    console.log("depCodeDeliveryMethod (checked):", depCodeDeliveryMethod);
+    console.log("depCodeAdvancePayment (checked):", depCodeAdvancePayment);
+    console.log("depCodeCostCenter (checked):", depCodeCostCenter);
+
+
     
-    ComboManager.setComboBoxItemSource(objFuncPR.cbCompany, staticData.getCompanyItems(), true, false);
-    ComboManager.setComboBoxItemSource(objFuncPR.cbDevision, staticData.getDevisionItems(), true, false);
-    debugger
+    //ComboManager.setComboBoxItemSource(objFuncPR.cbCompany, staticData.getCompanyItems(), true, false);
+    //ComboManager.setComboBoxItemSource(objFuncPR.cbDevision, staticData.getDevisionItems(), true, false);
+
+
+
+    //change combobox is get DocNum
     objFuncPR.cbCompany.on("change", function () {
         let company = $(this).find("option:selected").text();
-        getJsonString("Purchase", "GetDocNum", company, (result) => {
-            console.log(result)
-            if (result != null) {
-                objFuncPR.txtPRNo.text(result);
-            } else {
-                objFuncPR.txtPRNo.text("N/A"); // Clear if null
-            }
-        });
+        let code = $(this).val();
+        debugger
+        // get docNum
+        if (code != "0") {
+            getJsonString("Purchase", "GetDocNum", JSON.stringify(company), (result) => {
+                if (result != null) {
+                    objFuncPR.txtPRNo.val(result);
+                } else {
+                    objFuncPR.txtPRNo.val("N/A"); // Clear if null
+                }
+            }, "POST");
+        } else {
+            objFuncPR.txtPRNo.val("N/A");
+        }
+        //prevent
         if ($(this).val() == "1") {
             objFuncPR.cbDevision.prop("disabled", false);
         } else {
@@ -220,26 +320,57 @@ $(document).ready(function () {
     // Force initial check
     objFuncPR.cbCompany.trigger("change");
 
+    //create row default 10
+    const minRows = 10;
+    if (!details || details.length === 0) {
+        for (let i = 0; i < 10; i++) {
+            $('#editableTable tbody').append(createRow(i !== 0));
+        }
+    } else {
+        // If details exist, create rows from data
+        details.forEach((item, index) => {
 
-    for (let i = 0; i < 10; i++) {
-        $('#editableTable tbody').append(createRow(i !== 0));
+            const row = $(createRow(false)); // editable rows
+
+            row.find('input[name="ItemName"]').val(item.ItemName);
+            row.find('input[name="UoMName"]').val(item.UoMName);
+            row.find('input[name="Quantity"]').val(item.Quantity);
+            row.find('input[name="UnitPrice"]').val(item.UnitPrice);
+
+            // Calculate and set LineTotal
+            const qty = parseFloat(item.Quantity);
+            const price = parseFloat(item.UnitPrice);
+            if (!isNaN(qty) && !isNaN(price)) {
+                row.find('input[name="LineTotal"]').val((qty * price).toFixed(2));
+            }
+
+            $('#editableTable tbody').append(row);
+        });
+        const extraRows = minRows - details.length;
+        if (extraRows > 0) {
+            for (let i = 0; i < extraRows; i++) {
+                $('#editableTable tbody').append(createRow(i !== 0));
+            }
+        }
     }
-
     updateRowNumbers();
+    updateTotals();
 
+    // Handle row
     $('#editableTable tbody').on('click', 'tr', function () {
         $(this).addClass('selected').siblings().removeClass('selected');
     });
 
+    // Input event handler for any input inside the tbody
     $('#editableTable tbody').on('input', 'input', function () {
         const currentRow = $(this).closest('tr');
-        const inputs = currentRow.find('input[name!="LineTotal"]');
+        const inputs = currentRow.find('input').not('[name="LineTotal"]');
         let allFilled = true;
 
         inputs.each(function () {
             if ($(this).val().trim() === '') {
                 allFilled = false;
-                return false;
+                return false; // break loop
             }
         });
 
@@ -252,26 +383,28 @@ $(document).ready(function () {
             currentRow.find('input[name="LineTotal"]').val('');
         }
 
+        // Control readonly state of rows based on completeness
         let reachedIncomplete = false;
 
         $('#editableTable tbody tr').each(function (index, tr) {
             if (reachedIncomplete) {
-                $(tr).find('input[name!="LineTotal"]').attr('readonly', true);
+                $(tr).find('input').not('[name="LineTotal"]').attr('readonly', true);
                 return;
             }
 
-            const rowInputs = $(tr).find('input[name!="LineTotal"]');
+            const rowInputs = $(tr).find('input').not('[name="LineTotal"]');
             const isFilled = rowInputs.toArray().every(input => $(input).val().trim() !== '');
 
             if (isFilled) {
-                $(tr).find('input[name!="LineTotal"]').removeAttr('readonly');
+                $(tr).find('input').not('[name="LineTotal"]').removeAttr('readonly');
             } else {
                 reachedIncomplete = true;
-                $(tr).find('input[name!="LineTotal"]').removeAttr('readonly');
+                $(tr).find('input').not('[name="LineTotal"]').removeAttr('readonly');
             }
         });
     });
 
+    //Button add
     objFuncPR.btnAddRow.click(function () {
         const selectedRow = $('#editableTable tbody tr.selected');
         let newRow = $(createRow(true));
@@ -288,6 +421,7 @@ $(document).ready(function () {
         $('#editableTable tbody input:first').trigger('input');
     });
 
+    //Button remove
     objFuncPR.btnRemoveRow.click(function () {
         const selectedRow = $('#editableTable tbody tr.selected');
         const rowCount = $('#editableTable tbody tr').length;
@@ -333,28 +467,31 @@ $(document).ready(function () {
         }
     });
 
-
+    //Data
     objFuncPR.btnSubmit.click(function () {
         let PR = {
+            DocEntry: objFuncPR.lbDocEntry.data('depcode'),
             RequestDate: objFuncPR.txtRequestedDate.val(),
             RequireDate: objFuncPR.txtRequireDate.val(),
             Company: objFuncPR.cbCompany.find("option:selected").text(),
             Division: objFuncPR.cbDevision.find("option:selected").text(),
             DocStatus: objFuncPR.txtStatus.val(),
-            Purpose: objFuncPR.txtPurpose.val(),
-            DeliveryAddress: objFuncPR.txtAddress.val(),
-            Remark: objFuncPR.additionalSpec.val(),
+            Purpose: objFuncPR.txtPurpose.val()?.trim() || "",
+            DeliveryAddress: objFuncPR.txtAddress.val()?.trim() || "",
+            Remark: objFuncPR.txtAdditionalSpec.val()?.trim() || "",
             IsBudget: $('input[name="budgeted"]:checked').val(),
             DeliveryMethod: $('input[name="deliveryMethod"]:checked').val(),
             IsCashAdv: $('input[name="advancePayment"]:checked').val(),
             CashAdvAmt: parseInt(objFuncPR.txtCashAdvAmt.val()) || 0,
             CCDept: $('input[name="costCenter"]:checked').val()
         };
+        debugger
         objFuncPR.formControl.removeClass("is-invalid");
         objFuncPR.formSelect.removeClass("is-invalid");
         objFuncPR.invalid.hide();
         objFuncPR.star.hide().removeClass("require");
         let isValid = true;
+
         if (checkMethodDelivery() == true) {
             if (!PR.DeliveryAddress) {
                 objFuncPR.txtAddress.addClass("is-invalid");
@@ -370,7 +507,7 @@ $(document).ready(function () {
             }
         }
         if (!PR.RequestDate) {
-            objFuncPR.RequestDate.addClass("is-invalid");
+            objFuncPR.txtRequestedDate.addClass("is-invalid");
             objFuncPR.errorRequestedDate.show();
             objFuncPR.starRequestedDate.show().addClass("require");
             isValid = false;
@@ -437,33 +574,102 @@ $(document).ready(function () {
                 message: "Please insert data row in table.",
                 icon: 'notification',
                 hideCancelButton: true
-            });
+            }).then((results) => {
+                if (results == 'ok') {
+                    console.log("this iss :" + results);
+                }
+            })
             isValid = false;
         }
         if (!isValid) {
             return;
         }
-        debugger
-        $.ajax({
-            url: '/Purchase/InsertPR',
-            type: 'POST',
-            dataType: 'json', 
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(requestData),
-            success: function (result) {
-                console.log(result);
-            },
-            error: function (xhr, status, error) {
-                console.error('Error:', error);
+        getJsonString("Purchase", "InsertPR", JSON.stringify(requestData), (result) => {
+            if (result === 22) {
+                XSAlert({
+                    title: 'Information',
+                    message: "Update failed. This transaction has already been integrated with SAP.",
+                    icon: 'notification',
+                    hideCancelButton: true
+                });
             }
-        });
-  
+            if (result === 10) {
+                XSAlert({
+                    title: 'Success',
+                    message: "Data inserted successfully.",
+                    icon: 'notification',
+                    hideCancelButton: true
+                });
+                clearData();
+            }
+            if (result === 20) {
+                XSAlert({
+                    title: 'Success',
+                    message: "Data updated successfully.",
+                    icon: 'notification',
+                    hideCancelButton: true
+                });
+                clearData();
+                window.location.href = '/Purchase/PurchaseList';
+            }
+            if (result === 500) {
+                XSAlert({
+                    title: 'Error',
+                    message: "Transaction failed. Please review your input and try again.",
+                    icon: 'notification',
+                    hideCancelButton: true
+                });
+            }
+        },"POST");
     });
-    // Auto-calculate Amount = Quantity × UnitPrice
-    $('#editableTable').on('input', 'input[name="Quantity"], input[name="UnitPrice"]', function () {
-        const row = $(this).closest('tr');
-        const qty = parseFloat(row.find('input[name="Quantity"]').val()) || 0;
-        const price = parseFloat(row.find('input[name="UnitPrice"]').val()) || 0;
-        row.find('input[name="LineTotal"]').val((qty * price).toFixed(2));
+    objFuncPR.btnCancel.click(function () {
+        let depCodeDocEntry = parseInt(objFuncPR.lbDocEntry.data('depcode'));
+
+        if (isNaN(depCodeDocEntry)) {
+            alert("Invalid DocEntry");
+            return;
+        }
+
+        if (depCodeDocEntry !== 0) {
+            XSAlert({
+                title: 'Confirmation',
+                message: "Are you sure you want to cancel this transaction?",
+                icon: 'notification',
+                showCancelButton: true,
+               
+            }).then((results) => {
+                if (results == 'ok') {
+                    debugger
+                    getJsonString("Purchase", "PRCancel", JSON.stringify(depCodeDocEntry), (result) => {
+                        let alertOptions = {
+                            title: 'Information',
+                            icon: 'notification',
+                            hideCancelButton: true
+                        };
+                        if (result === 11) {
+                            alertOptions.message = "Cancellation failed. Please review your transaction and try again.";
+                        } else if (result === 22) {
+                            alertOptions.message = "Cancellation failed. This transaction has already been integrated with SAP.";
+                        } else if (result === 1) {
+                            alertOptions.message = "Cancellation successful. The transaction has been cancelled.";
+                            clearData();
+                            window.location.href = '/Purchase/PurchaseList';// only clear if successful
+                        } else {
+                            alertOptions.message = "Unexpected server response.";
+                        }
+
+                        XSAlert(alertOptions);
+                    }, "POST");
+                }
+            })
+        } else {
+            clearData();
+        }
     });
+
+
+    objFuncPR.btnBack.click(function () {
+        window.location.href = '/Purchase/PurchaseList';
+    });
+
 });

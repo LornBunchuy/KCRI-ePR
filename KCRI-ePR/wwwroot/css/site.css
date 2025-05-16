@@ -112,7 +112,6 @@ select {
     padding: 6px 10px;
     background-color: white; /* background only on input fields */
     color: black;
-    border: 1px solid black;
     font-size: 13px;
     width: 100%;
 }

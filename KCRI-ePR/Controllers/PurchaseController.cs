@@ -19,51 +19,120 @@ namespace KCRI_ePR.Controllers
             _service = service;
             _context = context;
         }
-        public IActionResult PurchaseRequest()
+        public IActionResult PurchaseRequest(int? docEntry)
         {
+            if (docEntry == null)
+            {
+                ViewBag.Companies = StaticData.CompanyList;
+                ViewBag.Divisions = StaticData.DivisionList;
+                return View();
+            }
+
+            // Check if docEntry is a string and try to convert it
+            int docEntryInt = docEntry.Value;
+
+            PRModel head = _context.PR
+                .Where(p => p.DocEntry == docEntryInt)
+                .FirstOrDefault();
+
+            List<PR1Model> details = _context.PR1
+                .Where(p => p.DocEntry == docEntryInt)
+                .ToList();
+            ViewBag.Companies = StaticData.CompanyList;
+            ViewBag.Divisions = StaticData.DivisionList;
+            ViewBag.head = head;
+            ViewBag.details = details;
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> InsertPR([FromBody] PRRequestModel request)
         {
             if (request == null || request.PR == null)
             {
-                return Ok(2);
+                return Ok(500);
             }
+
             try
             {
                 DateTime sqlMinDate = new DateTime(1753, 1, 1);
                 var data = request.PR;
                 var dataRows = request.PRDetails;
-
                 data.DocNum = await _service.GetDocNumPR(data.Company);
-
-                if (data.CreatedDate < sqlMinDate)
-                    data.CreatedDate = DateTime.Now;
-
-                if (data.UpdatedDate < sqlMinDate)
-                    data.UpdatedDate = DateTime.Now;
-
-                _context.PR.Add(data);
-                await _context.SaveChangesAsync(); 
-
-                if (dataRows != null && dataRows.Any())
+                // If it's an insert (DocEntry == 0)
+                if (data.DocEntry == 0)
                 {
-                    int lineNum = 0;
-                    foreach (var row in dataRows)
+                    if (data.CreatedDate < sqlMinDate)
+                        data.CreatedDate = DateTime.Now;
+                    //data.CreatedBy = "1";
+
+                    _context.PR.Add(data);
+                    await _context.SaveChangesAsync();
+
+                    if (dataRows != null && dataRows.Any())
                     {
-                        row.LineNum = lineNum++;
-                        row.DocEntry = data.DocEntry; // Set FK for all rows
+                        int lineNum = 0;
+                        foreach (var row in dataRows)
+                        {
+                            row.LineNum = lineNum++;
+                            row.DocEntry = data.DocEntry;
+                        }
+
+                        _context.PR1.AddRange(dataRows);
+                        await _context.SaveChangesAsync();
                     }
 
-                    _context.PR1.AddRange(dataRows); // Use AddRange instead of Add in a loop
-                    await _context.SaveChangesAsync();
+                    return Ok(10); // Insert Success
                 }
-                return Ok(10); // Success
+                else
+                {
+                    // check status
+                    if (data.DocStatus != "Open")
+                        return Ok(22);
+
+                    var existingPR = await _context.PR.FindAsync(data.DocEntry);
+                    if (existingPR == null)
+                        return Ok(500);
+                    existingPR.UpdatedDate = DateTime.Now;
+                    //existingPR.UpdatedBy = "1";
+                    existingPR.RequestDate = data.RequestDate;
+                    existingPR.RequireDate = data.RequireDate;
+                    existingPR.DocNum = data.DocNum;
+                    existingPR.Company = data.Company;
+                    existingPR.Division = data.Division;
+                    existingPR.IsBudget = data.IsBudget;
+                    existingPR.DeliveryMethod = data.DeliveryMethod;
+                    existingPR.DeliveryAddress = data.DeliveryAddress;
+                    existingPR.IsCashAdv = data.IsCashAdv;
+                    existingPR.CashAdvAmt = data.CashAdvAmt;
+                    existingPR.CCDept = data.CCDept;
+                    existingPR.Purpose = data.Purpose;
+                    existingPR.Remark = data.Purpose;
+
+                    // Remove existing PR1 details
+                    var existingDetails = _context.PR1.Where(d => d.DocEntry == data.DocEntry);
+                    _context.PR1.RemoveRange(existingDetails);
+                    await _context.SaveChangesAsync();
+
+                    // Add updated PR1 details
+                    if (dataRows != null && dataRows.Any())
+                    {
+                        int lineNum = 0;
+                        foreach (var row in dataRows)
+                        {
+                            row.LineNum = lineNum++;
+                            row.DocEntry = data.DocEntry;
+                        }
+                        _context.PR1.AddRange(dataRows);
+                        await _context.SaveChangesAsync();
+                    }
+
+                    return Ok(20); // Update Success
+                }
             }
             catch (DbUpdateException ex)
             {
-                return BadRequest($"Error saving data: {ex.InnerException?.Message}");
+                return Ok(500);
             }
         }
 
@@ -71,11 +140,13 @@ namespace KCRI_ePR.Controllers
         {
             return View();
         }
+
         [HttpGet]
         public IActionResult PRList()
         {
             var data = _context.PR
                 .Select(p => new {
+                    docEntry = p.DocEntry,
                     docNum = p.DocNum,
                     requestDate = p.RequestDate,
                     requireDate = p.RequireDate,
@@ -84,17 +155,36 @@ namespace KCRI_ePR.Controllers
                     purpose = p.Purpose,
                     status = p.DocStatus
                 }).ToList();
-
             return Ok(data); // returns JSON
         }
-        [HttpGet]
-        public async Task<IActionResult> GetDocNum([FromQuery] string company)
+
+        [HttpPost]
+        public async Task<IActionResult> GetDocNum([FromBody] string company)
         {
-            if(company != null || !company.IsNullOrEmpty())
+            if (!string.IsNullOrEmpty(company))
             {
                 return Ok(await _service.GetDocNumPR(company));
             }
             return Ok(0);
+        }
+        [HttpPost]
+        public IActionResult PRCancel([FromBody] int docEntry)
+        {
+            var pr = _context.PR
+                             .FirstOrDefault(p => p.DocEntry == docEntry);
+
+            if (pr == null)
+                return Ok(11);
+
+            if (pr.DocStatus != "Open")
+                return Ok(22);
+
+            pr.DocStatus = "Cancelled_User";
+            //pr.CancelledBy = "1";
+            pr.CancelledDate = DateTime.Now;
+            _context.SaveChanges();
+
+            return Ok(1); // success
         }
 
     }

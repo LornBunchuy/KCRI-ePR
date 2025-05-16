@@ -1,4 +1,5 @@
 ﻿let PRList = new function () {
+    this.mThis = this;
     this.purchaseTable = $("#purchaseTable");
     this.purchaseCol = [
         {
@@ -6,8 +7,16 @@
             title: 'No',
         },
         {
+            field: 'docEntry',
+            title: 'DocEntry',
+            visible: false
+        },
+        {
             field: 'docNum',
             title: 'PR No',
+            formatter: function (value, row) {
+                return `<a href="#" id="tr-link" class="pr-link text-primary" data-docnum="${value}" style="cursor:pointer;">${value}</a>`;
+            }
         },
         {
             field: 'requestDate',
@@ -61,8 +70,32 @@ $(document).ready(function () {
                 item.no = index + 1;
             });
             // Now this makes 'field: no' work
-            TableManager.loadData(PRList.purchaseTable, true, true, true, result, PRList.purchaseCol);
+            TableManager.loadData(PRList.purchaseTable, true, true, true, result, PRList.purchaseCol, {
+                onClickRow: function (row, $element) {
+                    // Pass data to form when row is clicked
+                    PRList.openPurchaseRequest(row);
+                }
+            });
         }
     });
-  
+    $('#purchaseTable').on('click', '#tr-link', function (e) {
+        e.preventDefault();
+
+        // Get the row index from the clicked row
+        const row = $(this).closest('tr').data('index');
+
+        // Get the row data from the Bootstrap Table
+        const rowData = PRList.purchaseTable.bootstrapTable('getData')[row];
+
+        // Convert docEntry to an integer
+        const docEntry = parseInt(rowData.docEntry, 10);
+
+        // Redirect to the Purchase action with the docEntry
+        window.location.href = `/Purchase/PurchaseRequest?docEntry=${docEntry}`;
+
+
+        // Log the clicked row data for debugging
+        console.log('Clicked Row Data:', rowData);
     });
+
+  });
