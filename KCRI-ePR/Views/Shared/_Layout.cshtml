@@ -55,14 +55,21 @@
                 <!-- Logout Link aligned to the right -->
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Login" asp-action="Login">
-                            <i class="fas fa-user"></i> Lorn Bunchuy
+                        <a class="nav-link" id="navAaccount">
+                            <i class="fas fa-user"></i><span id="username" class="ps-1">N/A</span>
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+    <!-- Loader Overlay -->
+    <div id="loader-overlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background-color:rgba(0,0,0,0.3); z-index:1999;"></div>
+    <div id="loader" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); z-index:2000;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
     <div class="container-fluide">
         <main role="main" class="pb-3">
             @RenderBody()

@@ -113,8 +113,11 @@ textarea {
     padding: 30px;
 }
 
-label {
-    margin-bottom: 2px;
+.form-label {
+    margin-bottom: 0px;
+}
+.form-check {
+    margin-bottom: 0px;
 }
 
 .pleft {

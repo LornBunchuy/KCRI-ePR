@@ -20,16 +20,16 @@
                 <select id="cbCompany" class="w-100 form-select">
                     <option value="">All</option>
                     <option value="KCRI">KCRI</option>
-                    <option value="EPR">EPR</option>
+                    <option value="CHLL">CHLL</option>
                 </select>
             </div>
             <div class="col-lg-2 col-sm-12">
                 <label for="cbStatus" class="form-label mb-2 d-block">Status:</label>
                 <select id="cbStatus" class="w-100 form-select" >
                     <option value="">All</option>
-                    <option value="Completed">Completed</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Cancelled">Cancelled</option>
+                    <option value="Open">Open</option>
+                    <option value="Cancelled_User">Cancelled_User</option>
+                    <option value="Close">Close</option>
                 </select>
             </div>
 
@@ -44,12 +44,13 @@
         </div>
         <div class="d-flex mt-2 align-items-center justify-content-start">
             <p class="mx-2 mb-0">Show</p>
-            <select class="mx-2  form-select" style="width: auto;">
-                <option value="">10</option>
-                <option value="">20</option>
-                <option value="">30</option>
-                <option value="">40</option>
-                <option value="">50</option>
+            <select class="mx-2  form-select" id="cbPageSize" style="width: auto;">
+                <option value="All">All</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
             </select>
             <p class="mb-0">entries</p>
         </div>
@@ -60,10 +61,7 @@
         <div class="page">
             <div class="row">
                 <div class="btn-all d-flex justify-content-end align-items-center">
-                    <button class="btn-previous">Previous</button>
-                    <button class="btn-active">1</button>
-                    <button class="btn-addPage">2</button>
-                    <button class="btn-next">Next</button>
+                    <!-- Pagination buttons will be added dynamically here -->
                 </div>
             </div>
         </div>

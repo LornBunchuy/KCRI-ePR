@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using KCRI_ePR.Data;
 using Microsoft.EntityFrameworkCore;
 using KCRI_ePR.Services;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 using Microsoft.IdentityModel.Tokens;
 
 namespace KCRI_ePR.Controllers
@@ -14,10 +13,17 @@ namespace KCRI_ePR.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IService _service;
-        public PurchaseController(ApplicationDbContext context, IService service)
+        private readonly GlobalData _globalData;
+        public PurchaseController(ApplicationDbContext context, IService service, GlobalData globalData)
         {
             _service = service;
             _context = context;
+            _globalData = globalData;
+        }
+        [HttpGet]
+        public IActionResult GetUsername()
+        {
+            return Json(new { username = _globalData.Username });
         }
         public IActionResult PurchaseRequest(int? docEntry)
         {
@@ -64,7 +70,7 @@ namespace KCRI_ePR.Controllers
                 {
                     if (data.CreatedDate < sqlMinDate)
                         data.CreatedDate = DateTime.Now;
-                    //data.CreatedBy = "1";
+                     data.CreatedBy = _globalData.UserCode;
 
                     _context.PR.Add(data);
                     await _context.SaveChangesAsync();
@@ -94,7 +100,7 @@ namespace KCRI_ePR.Controllers
                     if (existingPR == null)
                         return Ok(500);
                     existingPR.UpdatedDate = DateTime.Now;
-                    //existingPR.UpdatedBy = "1";
+                    existingPR.UpdatedBy = _globalData.UserCode;
                     existingPR.RequestDate = data.RequestDate;
                     existingPR.RequireDate = data.RequireDate;
                     existingPR.DocNum = data.DocNum;
@@ -180,12 +186,16 @@ namespace KCRI_ePR.Controllers
                 return Ok(22);
 
             pr.DocStatus = "Cancelled_User";
-            //pr.CancelledBy = "1";
+            pr.CancelledBy = _globalData.UserCode;
             pr.CancelledDate = DateTime.Now;
             _context.SaveChanges();
 
             return Ok(1); // success
         }
-
+        [HttpGet]
+        public IActionResult PageCount() {
+            int countPR = _context.PR.Count();
+            return Ok(countPR);
+        }
     }
 }

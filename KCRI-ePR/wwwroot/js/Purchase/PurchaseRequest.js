@@ -239,16 +239,16 @@ function preventCheckBox() {
 
 //Initailize
 $(document).ready(function () {
-
-    console.log(details);
-    debugger
+    showLoader();
     objFuncPR.star.hide();
     objFuncPR.txtPRNo.prop("disabled", true);
     triggerMethodDelivery();
     triggerAdvancePayment();
     preventCheckBox();
     formatfeild();
-
+    getJsonString("Purchase", "GetUsername", {}, (result) => {
+        objShared.lbUsername.text(result.username);
+    });
     // Assuming objFuncPR properties are jQuery elements like $('#txtRequestedDate')
     let depCodeDocEntry = objFuncPR.lbDocEntry.data('depcode');
     let depCodeRequestedDate = objFuncPR.txtRequestedDate.data('depcode');
@@ -290,27 +290,30 @@ $(document).ready(function () {
     //ComboManager.setComboBoxItemSource(objFuncPR.cbCompany, staticData.getCompanyItems(), true, false);
     //ComboManager.setComboBoxItemSource(objFuncPR.cbDevision, staticData.getDevisionItems(), true, false);
 
-
-
     //change combobox is get DocNum
     objFuncPR.cbCompany.on("change", function () {
         let company = $(this).find("option:selected").text();
         let code = $(this).val();
-        debugger
         // get docNum
-        if (code != "0") {
-            getJsonString("Purchase", "GetDocNum", JSON.stringify(company), (result) => {
-                if (result != null) {
-                    objFuncPR.txtPRNo.val(result);
-                } else {
-                    objFuncPR.txtPRNo.val("N/A"); // Clear if null
-                }
-            }, "POST");
-        } else {
-            objFuncPR.txtPRNo.val("N/A");
+        if (objFuncPR.lbDocEntry.data('depcode') == 0) {
+            if (code != "0") {
+                getJsonString("Purchase", "GetDocNum", company, (result) => {
+                    if (result != null) {
+                        objFuncPR.txtPRNo.val(result);
+                    } else {
+                        objFuncPR.txtPRNo.val("N/A"); // Clear if null
+                    }
+                }, "POST");
+            } else {
+                objFuncPR.txtPRNo.val("N/A");
+            }
         }
+       
         //prevent
-        if ($(this).val() == "1") {
+        if (objFuncPR.lbDocEntry.data('depcode') != 0) {
+            objFuncPR.cbDevision.prop("disabled", true);
+        }
+        else if ($(this).val() == "1") {
             objFuncPR.cbDevision.prop("disabled", false);
         } else {
             objFuncPR.cbDevision.prop("disabled", true).val("0");
@@ -326,6 +329,7 @@ $(document).ready(function () {
         for (let i = 0; i < 10; i++) {
             $('#editableTable tbody').append(createRow(i !== 0));
         }
+        hideLoader();
     } else {
         // If details exist, create rows from data
         details.forEach((item, index) => {
@@ -352,6 +356,7 @@ $(document).ready(function () {
                 $('#editableTable tbody').append(createRow(i !== 0));
             }
         }
+        hideLoader();
     }
     updateRowNumbers();
     updateTotals();
@@ -469,6 +474,7 @@ $(document).ready(function () {
 
     //Data
     objFuncPR.btnSubmit.click(function () {
+        showLoader();
         let PR = {
             DocEntry: objFuncPR.lbDocEntry.data('depcode'),
             RequestDate: objFuncPR.txtRequestedDate.val(),
@@ -485,7 +491,7 @@ $(document).ready(function () {
             CashAdvAmt: parseInt(objFuncPR.txtCashAdvAmt.val()) || 0,
             CCDept: $('input[name="costCenter"]:checked').val()
         };
-        debugger
+        
         objFuncPR.formControl.removeClass("is-invalid");
         objFuncPR.formSelect.removeClass("is-invalid");
         objFuncPR.invalid.hide();
@@ -582,9 +588,10 @@ $(document).ready(function () {
             isValid = false;
         }
         if (!isValid) {
+            hideLoader();
             return;
         }
-        getJsonString("Purchase", "InsertPR", JSON.stringify(requestData), (result) => {
+        getJsonString("Purchase", "InsertPR", requestData, (result) => {
             if (result === 22) {
                 XSAlert({
                     title: 'Information',
@@ -592,6 +599,7 @@ $(document).ready(function () {
                     icon: 'notification',
                     hideCancelButton: true
                 });
+                hideLoader()
             }
             if (result === 10) {
                 XSAlert({
@@ -600,7 +608,8 @@ $(document).ready(function () {
                     icon: 'notification',
                     hideCancelButton: true
                 });
-                clearData();
+                //clearData();
+                hideLoader()
             }
             if (result === 20) {
                 XSAlert({
@@ -610,6 +619,7 @@ $(document).ready(function () {
                     hideCancelButton: true
                 });
                 clearData();
+                hideLoader()
                 window.location.href = '/Purchase/PurchaseList';
             }
             if (result === 500) {
@@ -619,10 +629,12 @@ $(document).ready(function () {
                     icon: 'notification',
                     hideCancelButton: true
                 });
+                hideLoader()
             }
         },"POST");
     });
     objFuncPR.btnCancel.click(function () {
+        showLoader()
         let depCodeDocEntry = parseInt(objFuncPR.lbDocEntry.data('depcode'));
 
         if (isNaN(depCodeDocEntry)) {
@@ -639,8 +651,7 @@ $(document).ready(function () {
                
             }).then((results) => {
                 if (results == 'ok') {
-                    debugger
-                    getJsonString("Purchase", "PRCancel", JSON.stringify(depCodeDocEntry), (result) => {
+                    getJsonString("Purchase", "PRCancel", depCodeDocEntry, (result) => {
                         let alertOptions = {
                             title: 'Information',
                             icon: 'notification',
@@ -648,28 +659,35 @@ $(document).ready(function () {
                         };
                         if (result === 11) {
                             alertOptions.message = "Cancellation failed. Please review your transaction and try again.";
+                            hideLoader()
                         } else if (result === 22) {
                             alertOptions.message = "Cancellation failed. This transaction has already been integrated with SAP.";
+                            hideLoader()
                         } else if (result === 1) {
                             alertOptions.message = "Cancellation successful. The transaction has been cancelled.";
+                            hideLoader()
                             clearData();
-                            window.location.href = '/Purchase/PurchaseList';// only clear if successful
+                            window.location.href = '/Purchase/PurchaseList';
+                            hideLoader()// only clear if successful
                         } else {
                             alertOptions.message = "Unexpected server response.";
+                            hideLoader()
                         }
 
                         XSAlert(alertOptions);
                     }, "POST");
+                } else {
+                    hideLoader()
                 }
             })
         } else {
             clearData();
+            hideLoader()
         }
     });
-
-
     objFuncPR.btnBack.click(function () {
+        showLoader()
         window.location.href = '/Purchase/PurchaseList';
+        hideLoader()
     });
-
 });

@@ -73,7 +73,9 @@ body {
 .nav-item {
     padding: 6.5px 13px;
 }
-
+.btn{
+    width: 100px !important;
+}
 .nav-link {
     text-decoration: none;
     color: white;

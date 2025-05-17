@@ -74,7 +74,7 @@ hr {
     transition: all 0.4s ease-in;
     margin: auto;
     color: var(--black);
-    border-radius: 12px;
+/*    border-radius: 12px;*/
     align-content: space-around;
     flex-wrap: wrap;
     align-items: stretch;
@@ -213,7 +213,7 @@ hr {
     font-family: inherit;
     color: var(--white);
     padding: 10px 10px;
-    border-radius: 8px;
+/*    border-radius: 8px;*/
     min-width: 100px;
     transition: .3s ease;
     margin-top: 20px;
@@ -238,7 +238,7 @@ hr {
     font-family: inherit;
     color: var(--white);
     padding: 10px 10px;
-    border-radius: 8px;
+/*    border-radius: 8px;*/
     min-width: 100px;
     margin-top: 20px;
 }

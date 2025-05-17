@@ -6,6 +6,7 @@
     List<PR1Model> details = ViewBag.details ?? new List<PR1Model>();
     List<SelectListItem> companies = ViewBag.Companies ?? new List<SelectListItem>();
     List<SelectListItem> divisions = ViewBag.Divisions ?? new List<SelectListItem>();
+    bool isReadOnly = head.DocStatus != null;
 }
 
 
@@ -28,7 +29,7 @@
         <!-- Section 1: Date and PR Info -->
         <div class="row">
             <div class="col-lg-4">
-                <div class="row d-flex ">
+                <div class="row d-flex align-items-center ">
                     <div class="col-lg-4">
                         <label for="requestedDate">Requested Date :<span class="star" id="starRequestedDate">*</span></label>
                     </div>
@@ -57,7 +58,7 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="row d-flex">
+                <div class="row d-flex align-items-center">
                     <div class="col-lg-3">
                         <label id="lbDocEntry" data-depcode="@(head.DocEntry)" for="prNo">PR No : <span class="star" id="starPrNo">*</span></label>
                     </div>
@@ -75,14 +76,13 @@
 
 
         <div class="row">
-
             <div class="col-lg-4">
-                <div class="row d-flex justify-content-start">
+                <div class="row d-flex align-items-center justify-content-start">
                     <div class="col-lg-4">
                         <label for="company">Company : <span class="star" id="starCompany">*</span></label>
                     </div>
                     <div class="col-lg-8">
-                        <select id="company" name="Company" class="form-select" data-depcode="@(head.Company ?? "-1")">
+                            <select id="company" name="Company" class="form-select" data-depcode="@(head.Company ?? "-1")" @(isReadOnly ? "disabled" : "")>
                             <option value="0">N/A</option>
                             @foreach (var item in companies)
                             {
@@ -104,12 +104,12 @@
 
 
             <div class="col-lg-4">
-                <div class="row d-flex ">
+                <div class="row d-flex align-items-center ">
                     <div class="col-lg-3 ">
                         <label for="devision">Devision :<span class="star" id="starDevision">*</span></label>
                     </div>
                     <div class="col-lg-9">
-                        <select id="devision" class="form-select" data-depcode="@(head.Division ?? "-1")">
+                        <select id="devision" class="form-select" data-depcode="@(head.Division ?? "-1")" @(isReadOnly ? "disabled" : "")>
                             <option value="0">N/A</option> <!-- Blank option for default -->
                             @foreach (var item in divisions)
                             {
@@ -131,7 +131,7 @@
             </div>
 
             <div class="col-lg-4">
-                <div class="row d-flex">
+                <div class="row d-flex align-items-center">
                     <div class="col-lg-3">
                         <label for="status">Status : <span class="star" id="starStatus">*</span></label>
                     </div>
@@ -149,20 +149,20 @@
         <hr class="m-0 mb-2" />
         <!-- Section 2: Budget Information -->
         <!-- Section: Budgeted -->
-        <div class="row mb-3">
+        <div class="row mb-1 d-flex align-items-center">
             <div class="col-12 col-md-4">
-                <div class="row g-2">
+                <div class="row d-flex align-items-center">
                     <div class="col-12 col-md-4">
                         <label id="lbIsBudget" data-depcode="@(string.IsNullOrEmpty(head?.IsBudget) ? "-1" : head.IsBudget)" class="form-label">Budgeted : <span class="star" id="starBudgeted">*</span></label>
                     </div>
-                    <div class="col-6 col-sm-4 col-md-4 px-2">
+                    <div class="col-6 col-sm-4 col-md-4">
                         <div class="form-check">
                             <input type="checkbox"  name="budgeted" id="budgetedYes" value="Y"
                             class="form-check-input" @(head?.IsBudget == "Y" ? "checked" : "")  />
                             <label for="budgetedYes" class="form-check-label">Yes</label>
                         </div>
                     </div>
-                    <div class="col-6 col-sm-4 col-md-4 px-3">
+                    <div class="col-6 col-sm-4 col-md-4">
                         <div class="form-check">
                             <input type="checkbox" name="budgeted" id="budgetedNo" value="N"
                             class="form-check-input" @(head?.IsBudget == "N" ? "checked" : "")  />
@@ -180,9 +180,9 @@
         <hr class="m-0 mb-2" />
 
         <!-- Section: Delivery Method -->
-        <div class="row mb-3">
+        <div class="row d-flex align-items-center mb-2">
             <div class="col-12 col-md-4">
-                <div class="row">
+                <div class="row d-flex align-items-center mb-0">
                     <div class="col-md-4">
                         <label id="lbDeliveryMethod" data-depcode="@(string.IsNullOrEmpty(head?.DeliveryMethod) ? "-1" : head.DeliveryMethod)" class="form-label">
                             Preferred Method of Delivery : <span class="star" id="starPMOD">*</span>
@@ -225,7 +225,7 @@
             </div>
 
             <div class="col-12 col-md-8">
-                <div class="row g-2">
+                <div class="row d-flex align-items-center mb-0">
                     <!-- Address Textbox -->
                     <div class="col-12 col-md-12">
                         <input type="text"
@@ -249,13 +249,23 @@
         <hr class="m-0 mb-2" />
 
         <!-- Section: Advance Payment -->
-        <div class="row mb-3">
+        <div class="row d-flex align-items-center mb-2">
             <div class="col-12 col-md-4">
-                <div class="row">
+                <div class="row d-flex align-items-center mb-0">
                     <div class="col-6 col-sm-4 col-md-4">
                         <label id="lbIsCashAdv" data-depcode="@(string.IsNullOrEmpty(head?.IsCashAdv) ? "-1" : head.IsCashAdv)" class="form-label">Advance Required : <span class="star" id="starAdvance">*</span></label>
                     </div>
-
+                    <!-- No Option for Advance -->
+                    <div class="col-6 col-sm-4 col-md-4">
+                        <div class="form-check">
+                            <input type="checkbox"
+                                   name="advancePayment"
+                                   id="advanceNo" value="N"
+                                   class="form-check-input"
+                            @(head?.IsCashAdv == "N" ? "checked" : "") />
+                            <label for="advanceNo" class="form-check-label">No</label>
+                        </div>
+                    </div>
                     <!-- Yes Option for Advance -->
                     <div class="col-6 col-sm-4 col-md-4">
                         <div class="form-check">
@@ -270,18 +280,7 @@
                         </div>
                     </div>
 
-                    <!-- No Option for Advance -->
-                    <div class="col-6 col-sm-4 col-md-4">
-                        <div class="form-check">
-                            <input type="checkbox" 
-                            name="advancePayment" 
-                            id="advanceNo" value="N"
-                            class="form-check-input"
-
-                            @(head?.IsCashAdv == "N" ? "checked" : "")  />
-                            <label for="advanceNo" class="form-check-label">No</label>
-                        </div>
-                    </div>
+                    
                 </div>
                 <div class="invalid-feedback" id="errorAdvance" style="font-size: small;">
                     Please select if advance is required.
@@ -289,7 +288,7 @@
             </div>
 
             <div class="col-12 col-md-8">
-                <div class="row g-2">
+                <div class="row d-flex align-items-center mb-0">
                     <!-- Amount Textbox -->
                     <div class="col-12 col-sm-12 col-md-12">
                         <input type="text" name="advanceAmount" id="txtAmount" class="form-control"
@@ -308,14 +307,14 @@
         <hr class="m-0 mb-2" />
 
         <!-- Section: Cost Center -->
-        <div class="row">
+        <div class="row d-flex align-items-center mb-1">
             <div class="col-12 col-lg-4">
-                <div class="row" >
+                <div class="row d-flex align-items-center mb-0">
                     <div class="col-12 col-md-3 col-lg-4">
                         <label id="lbCCDept" data-depcode="@(string.IsNullOrEmpty(head?.CCDept) ? "-1" : head.CCDept)">Cost Center Dept : <span class="star" id="starCostCenter">*</span></label>
                     </div>
                     <!-- Fixed Asset Checkbox -->
-                    <div class="col-6 col-md-3 col-lg-4 mb-2">
+                    <div class="col-6 col-md-3 col-lg-4 mb-0">
                         <div class="form-check">
                             <input type="checkbox" id="costCenterFixedAsset" name="costCenter" value="FA"
                             class="form-check-input"
@@ -326,7 +325,7 @@
                         </div>
                     </div>
                     <!-- Stock Checkbox -->
-                    <div class="col-6 col-md-3 col-lg-4 mb-2">
+                    <div class="col-6 col-md-3 col-lg-4 mb-0">
                         <div class="form-check">
                             <input type="checkbox" id="costCenterStock" name="costCenter" value="Stock"
                             class="form-check-input"   
@@ -338,9 +337,9 @@
             </div>
 
             <div class="col-12 col-lg-4">
-                <div class="row">
+                <div class="row d-flex align-items-center mb-0">
                     <!-- Stationery Checkbox -->
-                    <div class="col-6 col-md-3 col-lg-4 mb-2">
+                    <div class="col-6 col-md-3 col-lg-4 mb-0">
                         <div class="form-check">
                             <input type="checkbox" id="costCenterStationery" name="costCenter" value="Stationary"
                             class="form-check-input"
@@ -350,7 +349,7 @@
                         </div>
                     </div>
                     <!-- Service Checkbox -->
-                    <div class="col-6 col-md-3 col-lg-4 mb-2">
+                    <div class="col-6 col-md-3 col-lg-4 mb-0">
                         <div class="form-check">
                             <input type="checkbox" id="costCenterService" name="costCenter" value="Service"
                             class="form-check-input"
@@ -451,15 +450,15 @@
         @if (head?.DocStatus == null )
         {
             <button type="submit" class="btn btn-success mt-3" id="btnsubmit">
-                Submit Request
+                Submit
             </button>
-            <button type="button" class="btn btn-danger mt-3" id="btnCancel">Cancel Request</button>
+            <button type="button" class="btn btn-danger mt-3" id="btnCancel">Cancel</button>
         }
         else if (head.DocStatus == "Open"){
             <button type="submit" class="btn btn-success mt-3" id="btnsubmit">
-               Update Request
+               Update
             </button>
-            <button type="button" class="btn btn-danger mt-3" id="btnCancel">Cancel Request</button>
+            <button type="button" class="btn btn-danger mt-3" id="btnCancel">Cancel</button>
             <button type="submit" class="btn btn-secondary mt-3" id="btnBack">
                 Back
             </button>
